@@ -1,0 +1,31 @@
+material 1311716685_1_Material2
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_write off
+      texture_unit
+      {
+        texture Oil.jpg
+        scroll_anim 0 -0.05
+        scale 2 2
+        wave_xform scale_x sine 1.5 0.05 0.0 0.5
+      }
+    }
+  }
+}
+material 1311716685_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

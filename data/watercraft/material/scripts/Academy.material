@@ -1,0 +1,68 @@
+material 1311196738_1_Pentagon
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_check on
+      depth_write off
+      ambient 0.0 0.0 0.0 0.5
+      diffuse 0.203921568627451 0.203921568627451 0.309803921568627 0.5
+      specular 0.0 0.0 0.0 0.5 0.0
+      emissive 0.0 0.0 0.0 1.0
+    }
+  }
+}
+material 1311196738_2_Color_E11
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.6 0.6 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1311196738_3_Dome
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.83921568627451 0.76078431372549 0.517647058823529
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1311196738_4_Color_003
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.666666666666667 0.666666666666667 0.666666666666667
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1311196738_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

@@ -1,0 +1,8 @@
+template container Panel(FESdkTrays/FELogo)
+{
+	metrics_mode pixels
+	material FESdkTrays/FELogo
+	horz_align center
+	width 454
+	height 167
+}

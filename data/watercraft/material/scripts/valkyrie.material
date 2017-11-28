@@ -1,0 +1,262 @@
+material <Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material <DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+material <Gray6>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.466666666666667 0.466666666666667 0.466666666666667 1.0
+      }
+   }
+}
+material <Beige>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.827450980392157 0.741176470588235 0.564705882352941 1.0
+      }
+   }
+}
+material <Brown>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.466666666666667 0.345098039215686 0.211764705882353 1.0
+      }
+   }
+}
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <Redwood>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.654901960784314 0.396078431372549 0.32156862745098 1.0
+      }
+   }
+}
+material jean_blue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.141176470588235 0.184313725490196 0.258823529411765 1.0
+      }
+   }
+}
+material Material1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.309803921568627 0.309803921568627 0.309803921568627 1.0
+      }
+   }
+}
+material Material2
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.647058823529412 0.647058823529412 0.647058823529412 0.3
+      }
+   }
+}
+material Material3
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.290196078431373 0.384313725490196 0.290196078431373 1.0
+      }
+   }
+}
+material Material4
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         12.0, 12.0
+         diffuse 1 1 1 0.13
+         texture_unit
+         {
+            texture Translucent_Resin_Crush_Gold.jpg
+         }
+      }
+   }
+}
+material Translucent_Resin_Crush_Red
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         12.0, 12.0
+         diffuse 1 1 1 0.18
+         texture_unit
+         {
+            texture Translucent_Resin_Crush_Red.jpg
+         }
+      }
+   }
+}
+material <Gray6>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.376470588235294 0.376470588235294 0.376470588235294 1.0
+      }
+   }
+}
+material Material6
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.133333333333333 0.137254901960784 0.125490196078431 1.0
+      }
+   }
+}
+material f-22-raptor-1
+{
+   technique
+   {
+      pass
+      {
+         644.907541102975, 504.640150913078
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture f-22-raptor-16.jpg
+         }
+      }
+   }
+}
+material Material7
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.858823529411765 0.858823529411765 0.858823529411765 1.0
+      }
+   }
+}
+material Metal_Corrogated_Shiny
+{
+   technique
+   {
+      pass
+      {
+         4.0, 4.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+         }
+      }
+   }
+}
+material Material8
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.376470588235294 0.376470588235294 0.376470588235294 0.33
+      }
+   }
+}
+material Material9
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.435294117647059 0.447058823529412 0.407843137254902 1.0
+      }
+   }
+}
+material Material10
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.117647058823529 0.129411764705882 0.0862745098039216 1.0
+      }
+   }
+}
+material Backfaces
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.188235294117647 0.784313725490196 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

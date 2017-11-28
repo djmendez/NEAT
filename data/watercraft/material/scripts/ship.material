@@ -1,0 +1,190 @@
+material jean_blue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.141176470588235 0.184313725490196 0.258823529411765 1.0
+      }
+   }
+}
+material <Beige>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.827450980392157 0.741176470588235 0.564705882352941 1.0
+      }
+   }
+}
+material <GrassGreen>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.243137254901961 0.356862745098039 0.0196078431372549 1.0
+      }
+   }
+}
+material <Olive>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.0 1.0
+      }
+   }
+}
+material <Chipboard>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.6 0.443137254901961 1.0
+      }
+   }
+}
+material <Gold>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.690196078431373 0.619607843137255 0.0980392156862745 1.0
+      }
+   }
+}
+material <Dark_Brown>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.305882352941176 0.247058823529412 0.168627450980392 1.0
+      }
+   }
+}
+material <Dark_Brown>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.203921568627451 0.168627450980392 0.0745098039215686 1.0
+      }
+   }
+}
+material <Dark_Olive>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.384313725490196 0.392156862745098 0.266666666666667 1.0
+      }
+   }
+}
+material <YellowGreen>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.603921568627451 0.803921568627451 0.196078431372549 1.0
+      }
+   }
+}
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material <DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+material <WhiteSmoke>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+      }
+   }
+}
+material <Grid>
+{
+   technique
+   {
+      pass
+      {
+         36.0, 36.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture grid.jpg
+         }
+      }
+   }
+}
+material <Mini_Blinds>
+{
+   technique
+   {
+      pass
+      {
+         96.0, 48.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture MiniBlinds - Blue.jpg
+         }
+      }
+   }
+}
+material Backfaces
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.188235294117647 0.784313725490196 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

@@ -1,0 +1,145 @@
+material 1308674872_1_2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.32156862745098 0.270588235294118 0.274509803921569
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 6306.78075643041, 4730.08556732281
+      texture_unit
+      {
+        texture 1308674872_3_2.jpg
+      }
+    }
+  }
+}
+material 1308674872_2_7
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.898039215686275 0.827450980392157 0.823529411764706
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 6306.78075643041, 4730.08556732281
+      texture_unit
+      {
+        texture 1308674872_1_7.jpg
+      }
+    }
+  }
+}
+material 1308674872_3_Color_008
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.117647058823529 0.117647058823529 0.117647058823529
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_4_Material4
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.345098039215686 0.172549019607843 0.141176470588235
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_5_Material5
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.627450980392157 0.290196078431373 0.266666666666667
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_6_Color_004
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.556862745098039 0.556862745098039 0.556862745098039
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_7_Material2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.917647058823529 0.290196078431373 0.254901960784314
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_8_Material3
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.364705882352941 0.329411764705882 0.105882352941176
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674872_9_8
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.952941176470588 0.882352941176471 0.874509803921569
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 6306.78075643041, 4730.08556732281
+      texture_unit
+      {
+        texture 1308674872_2_8.jpg
+      }
+    }
+  }
+}
+material 1308674872_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

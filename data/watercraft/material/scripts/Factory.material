@@ -1,0 +1,311 @@
+material 1308676219_1_<DarkSlateGray>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.184313725490196 0.309803921568627 0.309803921568627
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_2_<Gray_Glass>
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_check on
+      depth_write off
+      ambient 0.0 0.0 0.0 0.5
+      diffuse 0.501960784313725 0.501960784313725 0.501960784313725 0.5
+      specular 0.0 0.0 0.0 0.5 0.0
+      emissive 0.0 0.0 0.0 1.0
+    }
+  }
+}
+material 1308676219_3_<Green>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.0 0.501960784313725 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_4_<WhiteSmoke>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.96078431372549 0.96078431372549 0.96078431372549
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_5_<Concrete>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.654901960784314 0.654901960784314 0.654901960784314
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 48.0, 48.0
+      texture_unit
+      {
+        texture 1308676219_2_Concrete.jpg
+      }
+    }
+  }
+}
+material 1308676219_6_<Orange>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.96078431372549 0.725490196078431 0.258823529411765
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_7_<CorrogateShiny>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.756862745098039 0.756862745098039 0.756862745098039
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 6.0, 48.0
+      texture_unit
+      {
+        texture 1308676219_5_CorrogateShiny.jpg
+      }
+    }
+  }
+}
+material 1308676219_8_Material2
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.807843137254902 0.12156862745098 0.180392156862745
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_9_Material1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 0.152941176470588 0.223529411764706
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_10_<GrassGreen>1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.356862745098039 0.0823529411764706 0.0823529411764706
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_11_<Water-pool>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.184313725490196 0.345098039215686 0.654901960784314
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 64.0, 64.0
+      texture_unit
+      {
+        texture 1308676219_7_Water-pool.jpg
+      }
+    }
+  }
+}
+material 1308676219_12_Color_A06
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.8 0.0 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_13_<Snow>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 0.980392156862745 0.980392156862745
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_14_<Smooth_Face_Concrete_Block>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.803921568627451 0.772549019607843 0.772549019607843
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 48.0, 32.0
+      texture_unit
+      {
+        texture 1308676219_3_Smooth_Face_Concrete_Block.jpg
+      }
+    }
+  }
+}
+material 1308676219_15_<Concrete-rough>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.658823529411765 0.662745098039216 0.643137254901961
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 24.0, 24.0
+      texture_unit
+      {
+        texture 1308676219_1_Concrete-rough.jpg
+      }
+    }
+  }
+}
+material 1308676219_16_<Black>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.0 0.0 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_17_Color_000
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_18_Color_E06
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.8 0.8 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308676219_19_<Concrete>1
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.27843137254902 0.27843137254902 0.27843137254902
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 48.0, 48.0
+      texture_unit
+      {
+        texture 1308676219_4_Concrete.jpg
+      }
+    }
+  }
+}
+material 1308676219_20_<StandingSeam_Metal_Roof>
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.650980392156863 0.274509803921569 0.227450980392157
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 24.0, 24.0
+      texture_unit
+      {
+        texture 1308676219_6_StandingSeam-Red.jpg
+      }
+    }
+  }
+}
+material 1308676219_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

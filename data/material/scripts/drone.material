@@ -1,0 +1,84 @@
+
+material drone/Color_008.001
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.117647 0.117647 0.117647 1
+		}
+
+	}
+
+}
+
+material drone/Color_H12.001
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.117647 0.6 0.6 1
+		}
+
+	}
+
+}
+
+material drone/material.001
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.690196 0.717647 0.741176 1
+		}
+
+	}
+
+}
+
+material drone/Metal_Corrogated
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.639216 0.639216 0.639216 1
+		}
+
+	}
+
+}
+
+material drone/Color_009.001
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0 0 0 1
+		}
+
+	}
+
+}
+
+material drone/Color_003.001
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.666667 0.666667 0.666667 1
+		}
+
+	}
+
+}

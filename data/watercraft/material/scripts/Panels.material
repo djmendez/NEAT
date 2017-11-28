@@ -1,0 +1,824 @@
+material Empty
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Empty.png
+      }
+    } 
+  } 
+}
+      
+material Attack
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Attack.png
+      }
+    }
+  }
+}
+material Repair
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Repair.png
+      }
+    }
+  }
+}
+material Move
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Move.png
+      }
+    }
+  }
+}
+material Stop
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Stop.png
+      }
+    }
+  }
+}
+material Gather
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Gather.png
+      }
+    }
+  }
+}
+
+material Patrol
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Patrol.png
+      }
+    }
+  }
+}
+
+material HoldPosition
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture HoldPosition.png
+      }
+    }
+  }
+}
+
+material LiftOff
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture LiftOff.png
+      }
+    }
+  }
+}
+
+material SetRallyPoint
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SetRallyPoint.png
+      }
+    }
+  }
+}
+
+material Load
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Load.png
+      }
+    }
+  }
+}
+
+material WeaponUpgrade
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture WeaponUpgrade.png
+      }
+    }
+  }
+}
+
+material ArmorUpgrade
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture ArmorUpgrade.png
+      }
+    }
+  }
+}
+
+material AttackRangeUpgrade
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture AttackRangeUpgrade.png
+      }
+    }
+  }
+}
+
+material StimPack
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture StimPack.png
+      }
+    }
+  }
+}
+
+material Buildings
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Building.png
+      }
+    }
+  }
+}
+
+material Buildings/CommandCenter
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture CommandCenter.jpg
+      }
+    }
+  }
+}
+
+material Buildings/SupplyDepot
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SupplyDepot.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Barracks
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Barracks.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Bunker
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Bunker.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Academy
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Academy.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Armory
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Armory.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Turret
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Turret.jpg
+      }
+    }
+  }
+}
+
+material Buildings/ResearchFacility
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture ResearchFacility.jpg
+      }
+    }
+  }
+}
+
+material Buildings/EngineeringBay
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture EngineeringBay.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Factory
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Factory.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Refinery
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Refinery.jpg
+      }
+    }
+  }
+}
+
+material Buildings/Port
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Port.jpg
+      }
+    }
+  }
+}
+
+material Boats/MARINE
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture MARINE.png
+      }
+    }
+  }
+}
+material Boats/FIREBAT
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture FIREBAT.png
+      }
+    }
+  }
+}
+material Boats/GOLIATH
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture GOLIATH.png
+      }
+    }
+  }
+}
+material Boats/MEDIC
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture MEDIC.png
+      }
+    }
+  }
+}
+
+material Boats/GHOST
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture GHOST.png
+      }
+    }
+  }
+}
+
+material Boats/SCV
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SCV.png
+      }
+    }
+  }
+}
+
+material Boats/SIEGETANK
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SIEGETANK.png
+      }
+    }
+  }
+}
+
+material Boats/VULTURE
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture VULTURE.png
+      }
+    }
+  }
+}
+
+material Planes/BATTLECRUISER
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture BATTLECRUISER.png
+      }
+    }
+  }
+}
+
+material Planes/CESSNA
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture CESSNA.png
+      }
+    }
+  }
+}
+
+material Planes/DROPSHIP
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture DROPSHIP.png
+      }
+    }
+  }
+}
+
+material Planes/SCIENCEVESSEL
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SCIENCEVESSEL.png
+      }
+    }
+  }
+}
+
+material Planes/VALKYRIE
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture VALKYRIE.png
+      }
+    }
+  }
+}
+
+material Planes/WRAITH
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture WRAITH.png
+      }
+    }
+  }
+}
+
+material Resources/Oil
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture OilSnap.jpg
+      }
+    }
+  }
+}
+
+material Resources/Crystal
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Crystal.jpg
+      }
+    }
+  }
+}
+
+material Lifebar
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture lifebar.png
+      }
+    }
+  }
+}
+
+material ResourceBar
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture resourceBar.png
+      }
+    }
+  }
+}
+
+material ProgressBar
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture progressBar.png
+      }
+    }
+  }
+}
+
+material Action1
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Action1.png
+      }
+    }
+  }
+}
+
+material Action2
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Action2.png
+      }
+    }
+  }
+}
+
+material Action3
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Action3.png
+      }
+    }
+  }
+}
+
+material Action4
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Action4.png
+      }
+    }
+  }
+}
+
+material Action5
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Action5.png
+      }
+    }
+  }
+}

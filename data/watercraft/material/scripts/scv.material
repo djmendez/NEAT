@@ -1,0 +1,206 @@
+material Color_009
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material Color_A06
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.8 0.0 0.0 1.0
+      }
+   }
+}
+material Wood__Floor
+{
+   technique
+   {
+      pass
+      {
+         138.582677165354, 138.582677165354
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Wood_Floor.jpg
+         }
+      }
+   }
+}
+material Color_008
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.117647058823529 0.117647058823529 0.117647058823529 1.0
+      }
+   }
+}
+material Color_007
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.227450980392157 0.227450980392157 0.227450980392157 1.0
+      }
+   }
+}
+material Color_E01
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 0.0 1.0
+      }
+   }
+}
+material Material1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.0 0.0 1.0
+      }
+   }
+}
+material <Gold>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.843137254901961 0.0 1.0
+      }
+   }
+}
+material 0132_LightGray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.662745098039216 0.662745098039216 1.0
+      }
+   }
+}
+material Color_D18
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.4 0.337254901960784 0.156862745098039 1.0
+      }
+   }
+}
+material Color_006
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.337254901960784 0.337254901960784 0.337254901960784 1.0
+      }
+   }
+}
+material Color_E14
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.6 0.6 0.356862745098039 1.0
+      }
+   }
+}
+material Color_I06
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.8 1.0
+      }
+   }
+}
+material [Water_Deep]1
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         120.0, 120.0
+         diffuse 1 1 1 0.87
+         texture_unit
+         {
+            texture Water_Deep.jpg
+         }
+      }
+   }
+}
+material Color_002
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.776470588235294 0.776470588235294 0.776470588235294 1.0
+      }
+   }
+}
+material Color_C07
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.8 0.47843137254902 0.156862745098039 1.0
+      }
+   }
+}
+material Translucent_Glass_Blue
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.392156862745098 0.584313725490196 0.929411764705882 0.5
+      }
+   }
+}
+material Backfaces
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.188235294117647 0.784313725490196 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

@@ -1,0 +1,68 @@
+material 1308674690_1_Fiberglass_Section
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.756862745098039 0.756862745098039 0.505882352941176
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674690_2_Bubble
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_check on
+      depth_write off
+      ambient 0.0 0.0 0.0 0.7
+      diffuse 0.501960784313725 0.501960784313725 0.501960784313725 0.7
+      specular 0.0 0.0 0.0 0.7 0.0
+      emissive 0.0 0.0 0.0 1.0
+    }
+  }
+}
+material 1308674690_3_Color_E22
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.2 0.2 0.0392156862745098
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674690_4_Color_E10
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.8 0.8 0.63921568627451
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308674690_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

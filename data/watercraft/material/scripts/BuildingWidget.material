@@ -1,0 +1,192 @@
+material CommandCenterPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture CommandCenter.jpg
+      }
+    }
+  }
+}
+
+material SupplyDepotPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture SupplyDepot.jpg
+      }
+    }
+  }
+}
+
+material BarracksPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Barracks.jpg
+      }
+    }
+  }
+}
+
+material BunkerPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Bunker.jpg
+      }
+    }
+  }
+}
+
+material AcademyPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Academy.jpg
+      }
+    }
+  }
+}
+
+material ArmoryPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Armory.jpg
+      }
+    }
+  }
+}
+
+material TurretPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Turret.jpg
+      }
+    }
+  }
+}
+
+material ResearchFacilityPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture ResearchFacility.jpg
+      }
+    }
+  }
+}
+
+material EngineeringBayPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture EngineeringBay.jpg
+      }
+    }
+  }
+}
+
+material FactoryPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Factory.jpg
+      }
+    }
+  }
+}
+
+material RefineryPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Refinery.jpg
+      }
+    }
+  }
+}
+
+material PortPanel
+{
+  technique
+  {
+    pass
+    {
+    scene_blend add
+    depth_write off
+      texture_unit
+      {
+        texture Port.jpg
+      }
+    }
+  }
+}
+

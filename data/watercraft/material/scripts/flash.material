@@ -1,0 +1,16 @@
+material Flash
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture flash.png
+			}
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+		}
+	}
+}

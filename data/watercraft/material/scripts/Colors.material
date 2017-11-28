@@ -1,0 +1,154 @@
+
+material red
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 1  0 0
+        }
+      } 
+    }
+  }
+
+material blue
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 0 0 1
+        }
+      } 
+    }
+  }
+
+material white
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 1 1 1
+        }
+      } 
+    }
+  }
+
+material black
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 0 0 0
+        }
+      } 
+    }
+  }
+
+material green
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 0 1 0
+        }
+      } 
+    }
+  }
+
+material yellow
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 1 1 0
+        }
+      } 
+    }
+  }
+
+material purple
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current .6 0 1
+        }
+      } 
+    }
+  }
+
+material pink
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 1 0 .4
+        }
+      } 
+    }
+  }
+
+material orange
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 1 .5 0
+        }
+      } 
+    }
+  }
+
+material brown
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current .2 0 0
+        }
+      } 
+    }
+  }
+
+material black
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 0 0 0
+        }
+      } 
+    }
+  }

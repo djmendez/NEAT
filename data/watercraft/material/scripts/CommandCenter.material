@@ -1,0 +1,161 @@
+material 1308675716_1_Color_006
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.337254901960784 0.337254901960784 0.337254901960784
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_2_Fencing_Metal_Straight
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.76078431372549 0.764705882352941 0.768627450980392
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 62.284182, 48.0
+      texture_unit
+      {
+        texture 1308675716_1_Fencing_Metal_Straight.png
+      }
+    }
+  }
+}
+material 1308675716_3_Color_009
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.0 0.0 0.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_4_Color_003
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.666666666666667 0.666666666666667 0.666666666666667
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_5_Color_007
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.227450980392157 0.227450980392157 0.227450980392157
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_6_Material9
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.933333333333333 0.937254901960784 0.843137254901961
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 18.0, 27.0
+      texture_unit
+      {
+        texture 1308675716_2_Cladding_Stucco_White.jpg
+      }
+    }
+  }
+}
+material 1308675716_7_Color_005
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.447058823529412 0.447058823529412 0.447058823529412
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_8_Material4
+{
+  technique
+  {
+    pass
+    {
+      scene_blend alpha_blend
+      depth_check on
+      depth_write off
+      ambient 0.0 0.0 0.0 0.9
+      diffuse 0.137254901960784 0.145098039215686 0.176470588235294 0.9
+      specular 0.0 0.0 0.0 0.9 0.0
+      emissive 0.0 0.0 0.0 1.0
+    }
+  }
+}
+material 1308675716_9_Color_000
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}
+material 1308675716_10_Cladding_Stucco_White
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 0.784313725490196 0.784313725490196 0.784313725490196
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+      // texture size: 18.0, 27.0
+      texture_unit
+      {
+        texture 1308675716_3_Cladding_Stucco_White.jpg
+      }
+    }
+  }
+}
+material 1308675716_SketchupDefault
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.0 0.0 0.0
+      diffuse 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 0.0
+      emissive 0.0 0.0 0.0
+    }
+  }
+}

@@ -1,0 +1,124 @@
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <OrangeRed>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.627450980392157 0.0 0.0 1.0
+      }
+   }
+}
+material <WhiteSmoke>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+      }
+   }
+}
+material <SkyBlue>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.529411764705882 0.807843137254902 0.92156862745098 1.0
+      }
+   }
+}
+material <Red_Glass>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1.0 0.0 0.0 0.5
+      }
+   }
+}
+material <Dark_Green_Glass>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.243137254901961 0.654901960784314 0.0196078431372549 0.5
+      }
+   }
+}
+material <CorrogateRust>
+{
+   technique
+   {
+      pass
+      {
+         9.84251968503937, 18.6250757116899
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture CorrogateRust.jpg
+         }
+      }
+   }
+}
+material <Pool_Water>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         96.0, 96.0
+         diffuse 1 1 1 0.6
+         texture_unit
+         {
+            texture Water-pool.jpg
+         }
+      }
+   }
+}
+material <Water-pool>
+{
+   technique
+   {
+      pass
+      {
+         314.96062992126, 314.96062992126
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Water-pool.jpg
+         }
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.882352941176471 0.882352941176471 0.784313725490196
+      }
+   }
+}

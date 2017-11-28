@@ -1,0 +1,737 @@
+material <Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material <DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+material <Gray6>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.376470588235294 0.376470588235294 0.376470588235294 1.0
+      }
+   }
+}
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <Redwood>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.654901960784314 0.396078431372549 0.32156862745098 1.0
+      }
+   }
+}
+material Material3
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.388235294117647 0.388235294117647 0.337254901960784 1.0
+      }
+   }
+}
+material <0135_DarkGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.317647058823529 0.317647058823529 0.317647058823529 1.0
+      }
+   }
+}
+material <0136_Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material Translucent_Glass_Gray
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 0.5
+      }
+   }
+}
+material Color_005
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.447058823529412 0.447058823529412 0.447058823529412 1.0
+      }
+   }
+}
+material Metal_Corrogated_Brown
+{
+   technique
+   {
+      pass
+      {
+         1.0, 1.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+         }
+      }
+   }
+}
+material Material14
+{
+   technique
+   {
+      pass
+      {
+         5.11811023622047, 5.11811023622047
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+         }
+      }
+   }
+}
+material Color_A06
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.8 0.0 0.0 1.0
+      }
+   }
+}
+material Color_D16
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.4 0.298039215686275 0.0 1.0
+      }
+   }
+}
+material Color_007
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.227450980392157 0.227450980392157 0.227450980392157 1.0
+      }
+   }
+}
+material <LightGray>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.156862745098039 0.149019607843137 0.152941176470588 1.0
+      }
+   }
+}
+material Translucent_Glass_Gray1
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 0.5
+      }
+   }
+}
+material Translucent_Glass_Gray
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.27843137254902 0.356862745098039 0.125490196078431 0.54
+      }
+   }
+}
+material Material17
+{
+   technique
+   {
+      pass
+      {
+         0.25, 0.25
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+         }
+      }
+   }
+}
+material Color_008
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.117647058823529 0.117647058823529 0.117647058823529 1.0
+      }
+   }
+}
+material DarkGray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.184313725490196 0.184313725490196 0.184313725490196 1.0
+      }
+   }
+}
+material Material15
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+      }
+   }
+}
+material Material4
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.298039215686275 0.298039215686275 0.298039215686275 1.0
+      }
+   }
+}
+material Material5
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.2 0.2 0.2 1.0
+      }
+   }
+}
+material Body
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.298039215686275 0.298039215686275 0.298039215686275 1.0
+      }
+   }
+}
+material Wheels
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.117647058823529 0.117647058823529 0.117647058823529 1.0
+      }
+   }
+}
+material _Parts_Gray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.184313725490196 0.176470588235294 0.2 1.0
+      }
+   }
+}
+material Body_White_Contrast
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.619607843137255 0.619607843137255 0.619607843137255 1.0
+      }
+   }
+}
+material <DarkGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.317647058823529 0.317647058823529 0.317647058823529 1.0
+      }
+   }
+}
+material <Gray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 1.0
+      }
+   }
+}
+material Charcoal
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material Panel_Cluster
+{
+   technique
+   {
+      pass
+      {
+         25.2153191071213, 31.6532729217055
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture cluster.JPG
+         }
+      }
+   }
+}
+material Control_Panel
+{
+   technique
+   {
+      pass
+      {
+         76.111850132326, 57.0838875992445
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Agusta_004.jpg
+         }
+      }
+   }
+}
+material Seat_Fabric
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.286274509803922 0.286274509803922 0.329411764705882 1.0
+      }
+   }
+}
+material zBlack
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material Dark_Gold
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+material ____Charcoal
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <Red_Glass>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 1.0 0.0 0.0 0.5
+      }
+   }
+}
+material <0020_Red>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.0 0.0 1.0
+      }
+   }
+}
+material <0063_GreenYellow>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.67843137254902 1.0 0.184313725490196 1.0
+      }
+   }
+}
+material Translucent_Glass_Safety
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         6.0, 6.0
+         diffuse 1 1 1 0.5
+         texture_unit
+         {
+            texture Translucent_Glass_Saftey.jpg
+         }
+      }
+   }
+}
+material <0133_Gray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 1.0
+      }
+   }
+}
+material <0134_DimGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.411764705882353 0.411764705882353 0.411764705882353 1.0
+      }
+   }
+}
+material <0129_WhiteSmoke>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.96078431372549 0.96078431372549 0.96078431372549 1.0
+      }
+   }
+}
+material <0130_Gainsboro>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.862745098039216 0.862745098039216 0.862745098039216 1.0
+      }
+   }
+}
+material Translucent_Glass_Green_Dark
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.243137254901961 0.356862745098039 0.0196078431372549 0.5
+      }
+   }
+}
+material <Gray_Glass>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.501960784313725 0.501960784313725 0.501960784313725 0.5
+      }
+   }
+}
+material <White>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+      }
+   }
+}
+material <Silver>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.752941176470588 0.752941176470588 0.752941176470588 1.0
+      }
+   }
+}
+material <Gainsboro>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.776470588235294 0.776470588235294 0.776470588235294 1.0
+      }
+   }
+}
+material <0038_Orange>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.647058823529412 0.0 1.0
+      }
+   }
+}
+material <0022_Maroon>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.501960784313725 0.0 0.0 1.0
+      }
+   }
+}
+material <0044_DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 0.5
+      }
+   }
+}
+material <0137_Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material <LightGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.662745098039216 0.662745098039216 1.0
+      }
+   }
+}
+material 0132_LightGray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.662745098039216 0.662745098039216 1.0
+      }
+   }
+}
+material 0137_Black
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material Color_I18
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.156862745098039 0.156862745098039 0.4 1.0
+      }
+   }
+}
+material 0111_SlateGray
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.43921568627451 0.501960784313725 0.564705882352941 1.0
+      }
+   }
+}
+material Translucent_Glass_Blue
+{
+   technique
+   {
+      pass
+      {
+         scene_blend alpha_blend
+         depth_check on
+         depth_write off
+         diffuse 0.392156862745098 0.584313725490196 0.929411764705882 0.5
+      }
+   }
+}
+material <Orange>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.647058823529412 0.0 1.0
+      }
+   }
+}
+material <0048_PaleGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.933333333333333 0.909803921568627 0.666666666666667 1.0
+      }
+   }
+}
+material <0131_Silver>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.752941176470588 0.752941176470588 0.752941176470588 1.0
+      }
+   }
+}
+material __<DarkGray>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.258823529411765 0.258823529411765 0.258823529411765 1.0
+      }
+   }
+}
+material _Parts_Red_1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.8 0.0 0.0 1.0
+      }
+   }
+}
+material Black
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material zSeat_Backing
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.184313725490196 0.176470588235294 0.2 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

@@ -1,0 +1,35 @@
+material FESdkTrays/FELogo : SdkTrays/Base
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture FE_Logo.png
+            }
+	    scene_blend alpha_blend
+	    depth_write off
+	    lighting off
+        }
+    }
+}
+
+material FESdkTrays/FEShade
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_check off
+            
+	    texture_unit
+	    {
+                tex_address_mode clamp
+		texture carrier.jpg
+	    }
+        }
+    }
+}

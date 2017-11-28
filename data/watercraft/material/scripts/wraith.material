@@ -1,0 +1,310 @@
+material <Black>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0 0.0 0.0 1.0
+      }
+   }
+}
+material <DarkGoldenrod>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.72156862745098 0.525490196078431 0.0431372549019608 1.0
+      }
+   }
+}
+material <Gray6>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.647058823529412 0.647058823529412 0.647058823529412 1.0
+      }
+   }
+}
+material <Beige>1
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.827450980392157 0.741176470588235 0.564705882352941 1.0
+      }
+   }
+}
+material <Brown>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.466666666666667 0.345098039215686 0.211764705882353 1.0
+      }
+   }
+}
+material <Charcoal>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.137254901960784 0.137254901960784 0.137254901960784 1.0
+      }
+   }
+}
+material <Redwood>
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.654901960784314 0.396078431372549 0.32156862745098 1.0
+      }
+   }
+}
+material jean_blue
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.141176470588235 0.184313725490196 0.258823529411765 1.0
+      }
+   }
+}
+material Tires_001
+{
+   technique
+   {
+      pass
+      {
+         202.474690663667, 354.330708661417
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tires001.jpg
+         }
+      }
+   }
+}
+material Tires_002
+{
+   technique
+   {
+      pass
+      {
+         354.330708661417, 347.410187007874
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Tires002.jpg
+         }
+      }
+   }
+}
+material Engine_001
+{
+   technique
+   {
+      pass
+      {
+         629.92125984252, 484.303098476327
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Engine001.jpg
+         }
+      }
+   }
+}
+material Metal_Corrogated_Shiny
+{
+   technique
+   {
+      pass
+      {
+         4.0, 4.0
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+         }
+      }
+   }
+}
+material Klappe_001
+{
+   technique
+   {
+      pass
+      {
+         154.321684001534, 236.220472440945
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Klappe001.jpg
+         }
+      }
+   }
+}
+material Klappe_002
+{
+   technique
+   {
+      pass
+      {
+         265.729495677447, 275.590551181102
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Klappe002.jpg
+         }
+      }
+   }
+}
+material Klappe_003
+{
+   technique
+   {
+      pass
+      {
+         236.220472440945, 78.4836748826592
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Klappe003.jpg
+         }
+      }
+   }
+}
+material Engine_004
+{
+   technique
+   {
+      pass
+      {
+         472.44094488189, 251.009232982933
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Engine004.jpg
+         }
+      }
+   }
+}
+material Rumpf_001
+{
+   technique
+   {
+      pass
+      {
+         354.330708661417, 140.878474528033
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Rumpf001.jpg
+         }
+      }
+   }
+}
+material 452707992_accb6bc3a8_o6
+{
+   technique
+   {
+      pass
+      {
+         669.291338582677, 413.461830784666
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Glass-Saftey.jpg
+         }
+      }
+   }
+}
+material Rumpf_006e
+{
+   technique
+   {
+      pass
+      {
+         669.291338582677, 127.779742864173
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Rumpf006m.jpg
+         }
+      }
+   }
+}
+material Cockpit_001
+{
+   technique
+   {
+      pass
+      {
+         47.244094488189, 236.220472440945
+         diffuse 1 1 1 1.0
+         texture_unit
+         {
+            texture Cockpit001.jpg
+         }
+      }
+   }
+}
+material Color_008
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.117647058823529 0.117647058823529 0.117647058823529 1.0
+      }
+   }
+}
+material Color_002
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.776470588235294 0.776470588235294 0.776470588235294 1.0
+      }
+   }
+}
+material Color_007
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.227450980392157 0.227450980392157 0.227450980392157 1.0
+      }
+   }
+}
+material Backfaces
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 0.188235294117647 0.784313725490196 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

@@ -1,0 +1,110 @@
+material Blimp_Body
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.662745098039216 0.662745098039216 0.662745098039216 1.0
+      }
+   }
+}
+material Red
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.756862745098039 0.286274509803922 0.341176470588235 1.0
+      }
+   }
+}
+material Nose_Support/_Prop_Hold
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.549019607843137 0.549019607843137 0.549019607843137 1.0
+      }
+   }
+}
+material Window_Trim
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.337254901960784 0.337254901960784 0.337254901960784 1.0
+      }
+   }
+}
+material Glass_Shade_a
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.56078431372549 0.56078431372549 0.937254901960784 1.0
+      }
+   }
+}
+material Cabin
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.549019607843137 0.549019607843137 0.549019607843137 1.0
+      }
+   }
+}
+material Lug_White
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0 1.0
+      }
+   }
+}
+material Lug_Red
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.666666666666667 0.0509803921568627 0.0666666666666667 1.0
+      }
+   }
+}
+material Propeller_Blade
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.698039215686274 0.698039215686274 0.698039215686274 1.0
+      }
+   }
+}
+material Text
+{
+   technique
+   {
+      pass
+      {
+         diffuse 0.0941176470588235 0.192156862745098 0.407843137254902 1.0
+      }
+   }
+}
+material SketchupDefault
+{
+   technique
+   {
+      pass
+      {
+         diffuse 1.0 1.0 1.0
+      }
+   }
+}

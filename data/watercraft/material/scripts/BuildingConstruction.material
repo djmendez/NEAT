@@ -1,0 +1,69 @@
+material constructionTest
+{
+technique
+{
+     pass
+     {
+       lighting off
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         texture invisible.png
+         alpha_op_ex source1 src_manual src_texture 0      
+       }
+     }
+   
+     pass
+      {
+         scene_blend alpha_blend
+         texture_unit
+         {
+            texture Gradual.png           
+            scroll_anim 0 -0.5
+            alpha_op_ex modulate src_manual src_texture 1
+         }
+         texture_unit
+         {
+            texture Metal_Corrogated_Shiny.jpg
+            colour_op_ex blend_current_alpha src_texture src_current
+         }
+      }
+}
+}
+
+material invalidPlacement
+{
+technique
+{
+     pass
+     {
+       lighting off
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         texture invisible.png
+         alpha_op_ex source1 src_manual src_texture 0      
+       }
+     }
+   
+     pass
+      {
+         scene_blend alpha_blend
+         texture_unit
+         {
+            texture Gradual.png           
+            scroll_anim 0 -0.5
+            alpha_op_ex modulate src_manual src_texture 1
+         }
+         texture_unit
+         {
+            texture 1308676219_6_StandingSeam-Red.jpg
+            colour_op_ex blend_current_alpha src_texture src_current
+         }
+      }
+}
+}

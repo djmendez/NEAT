@@ -81,7 +81,7 @@ pair<IMParams, IMParams> makeParams(int argc, char*argv[]){
 	return pair<IMParams, IMParams> (param1,param2);
 }
 
-Options makeOptions(bool tacticalAI,bool enableGfx){
+Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB){
 	Options options;
 
 	options.enableNetworking = false;
@@ -108,18 +108,22 @@ Options makeOptions(bool tacticalAI,bool enableGfx){
     options.levelType = _64x64;
     options.maxFrames = 10000;
 
+    options.numUnitsA = numUnitsA;
+    options.numUnitsB = numUnitsB;
+
 	return options;
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], int numUnits, int tacticalAI, int enableGfx) {
+int FEEvaluate(int argc, char *argv[], int numUnitsA, int numUnitsB, int tacticalAI, int enableGfx) {
+
 
 	srandom(1);
 
 	pair<IMParams, IMParams> microparams = makeParams(argc, argv);
 	GA::getInstance()->setParams(microparams.first, microparams.second);
 
-	Options options = makeOptions(tacticalAI,enableGfx);
+	Options options = makeOptions(tacticalAI,enableGfx,numUnitsA,numUnitsB);
 
 	Engine *engine = new Engine(random(), options);
 
@@ -136,21 +140,26 @@ int FEEvaluate(int argc, char *argv[], int numUnits, int tacticalAI, int enableG
 	//Stop game
 	engine->stop();
 
+	double fitness = engine->infoMgr->squadmgr_red->getSquadScore();
+
 	delete engine;
 
-	return 3;
+	return fitness;
 }
 
 int main(int argc, char *argv[]){
 //	srandom(time(NULL));
 	//srandom(atoi(argv[2]));
 	//std::cout << atoi(argv[2]) << std::endl;
-	int fitness;
+	double fitness;
 
 	printf("Starting Main\n");
-	// should be argc, argv, NETWORK, num_units, tacticalAI, enableGfx
-	fitness = FEEvaluate(argc,argv,1,true,false);
-	printf("Ending with fitness: %d\n",fitness);
+	// should be argc, argv, NETWORK, numUnitsA (for now "DRONES"), numUnitsB (for now "SC_ZEALOTS"), tacticalAI, enableGfx
+	// A are "friendlies", Side RED
+	// B are "Enemies", Side BLUE (I think))
+	// add maxframes
+	fitness = FEEvaluate(argc,argv,10,5,true,true); //add network
+	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;
 }

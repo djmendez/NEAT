@@ -50,7 +50,8 @@ const int   PerPlayerMaxEnts          = 200;
 const float MaxMineralFindingDistance = 500;
 const int   MaxPlayers                = 4;
 
-
+// segments for the NEAT input
+const int NEATSegments = 8;
 
 
 }

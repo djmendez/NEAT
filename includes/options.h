@@ -28,6 +28,9 @@ typedef struct  {
 	FastEcslent::Player player;
 	FastEcslent::Side side;
 
+	int numUnitsA;
+	int numUnitsB;
+
 	int gameNumber; //which game?
         
     FastEcslent::LevelType levelType;

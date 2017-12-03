@@ -93,11 +93,15 @@ void InfoMgr::tick(){
 
 			double score = this->squadmgr_red->getSquadScore();
 
-//			cout<</*"\nFinal Score is: "<<*/ score << /*", Game duration: "<<duration << " seconds." <<endl<<endl<<endl<<*/endl;
+			cout<< "Final Score is: " << score << ", Game duration: " << duration << " seconds";
 
-			std::cout << score << std::endl;
+			// std::cout << score << std::endl;
 
-			this->engine->quit = true;
+			// if graphics force exit so as not to wait for thread -- else will popup and terminate nicely - eeeeww: yes, i know
+			if (this->engine->options.enableGfx)
+				exit(0);
+			else
+				this->engine->quit = true;
 			// exit(0);
 		}
 	}

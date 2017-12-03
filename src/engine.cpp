@@ -149,10 +149,6 @@ void FastEcslent::Engine::run(){
 		ms = max(0, 33 - ms);//30 fps
 		boost::this_thread::sleep( boost::posix_time::milliseconds(ms) );
 
-		cout << frames << endl;
-		if (frames == 418)
-			cout << "I am here" << endl;
-
 		if(frames%1000==0){
 			cout<<"Current frame is: "<< frames<<", in " << (newTime-startTime).total_seconds()<<" Seconds." <<endl;
 		}

@@ -19,7 +19,7 @@
 void FastEcslent::NEAT::NEATProcess() {
 
 
-	output[0] = 1;
+	output[0] = 2;
 	output[1] = 2;
 }
 

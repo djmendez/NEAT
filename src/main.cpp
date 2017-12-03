@@ -20,6 +20,7 @@
 #include "micro/IMParams.h"
 #include <sstream>
 #include <cstdlib>
+#include <neat.h>
 
 using namespace FastEcslent;
 using namespace std;
@@ -115,7 +116,7 @@ Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], int numUnitsA, int numUnitsB, int tacticalAI, int enableGfx) {
+int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, int tacticalAI, int enableGfx) {
 
 
 	srandom(1);
@@ -125,7 +126,7 @@ int FEEvaluate(int argc, char *argv[], int numUnitsA, int numUnitsB, int tactica
 
 	Options options = makeOptions(tacticalAI,enableGfx,numUnitsA,numUnitsB);
 
-	Engine *engine = new Engine(random(), options);
+	Engine *engine = new Engine(random(), options, neatNet);
 
 	//Construct all the managers
 	engine->constructManagers();
@@ -152,13 +153,26 @@ int main(int argc, char *argv[]){
 	//srandom(atoi(argv[2]));
 	//std::cout << atoi(argv[2]) << std::endl;
 	double fitness;
+	NEAT *neatNet = new NEAT();
+
+	neatNet->input[0] = 1;
+	neatNet->input[2] = 3;
+	neatNet->output[0] = 1;
+	neatNet->output[1] = 1;
 
 	printf("Starting Main\n");
 	// should be argc, argv, NETWORK, numUnitsA (for now "DRONES"), numUnitsB (for now "SC_ZEALOTS"), tacticalAI, enableGfx
 	// A are "friendlies", Side RED
 	// B are "Enemies", Side BLUE (I think))
 	// add maxframes
-	fitness = FEEvaluate(argc,argv,10,5,true,true); //add network
+	// ARGUMENTS
+	// argc, argv -- unused, left for legacy
+	// neatNet --- pointer to NEATNeuralNetworl
+	// numUnits side A
+	// numUnits side B
+	// enable tactical AI
+	// enable Graphics
+	fitness = FEEvaluate(argc,argv,neatNet,10,5,true,false); //add network
 	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;

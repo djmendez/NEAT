@@ -17,10 +17,11 @@ using namespace boost::posix_time;
 
 using namespace std;
 
-		FastEcslent::Engine::Engine(int instId, Options opts) {
+		FastEcslent::Engine::Engine(int instId, Options opts, NEAT *neatNet) {
 			instanceId = instId;
 			options = opts;
 			quit = false;
+			engineNEATNet = neatNet;
 			this->gameState = GAME;
 			this->startTime = getCurrentTime();
 		}
@@ -34,6 +35,11 @@ using namespace std;
 		}
 
 void FastEcslent::Engine::constructManagers() {
+
+	cout << "At Engine Construct:" <<  engineNEATNet->output[0] << endl;
+	engineNEATNet->NEATProcess();
+	cout << "At Engine Construct:" <<  engineNEATNet->output[0] << endl;
+
 	entityMgr = new EntityMgr(this, options);
 	selectionMgr = new SelectionMgr(this, options);
 	weaponMgr    = new WeaponMgr(this, options);

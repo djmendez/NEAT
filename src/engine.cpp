@@ -36,10 +36,6 @@ using namespace std;
 
 void FastEcslent::Engine::constructManagers() {
 
-	cout << "At Engine Construct:" <<  engineNEATNet->output[0] << endl;
-	engineNEATNet->NEATProcess();
-	cout << "At Engine Construct:" <<  engineNEATNet->output[0] << endl;
-
 	entityMgr = new EntityMgr(this, options);
 	selectionMgr = new SelectionMgr(this, options);
 	weaponMgr    = new WeaponMgr(this, options);

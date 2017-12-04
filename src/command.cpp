@@ -15,6 +15,7 @@
 #include "buildings.h"
 #include "command.h"
 #include "distanceMgr.h"
+#include <neat.h>
 
 //#include <command.h>
 inline bool FastEcslent::Move::done() {
@@ -383,52 +384,154 @@ void FastEcslent::Potential3DMove::init(){
 	//std::cout << this->entity->entityId.side << ": " << this->A << ", " << this->B << ", " << this->m << ", " << this->n << std::endl;
 }
 
+
+// INSERT NEAT CODE BELOW
+// Logic:
+// If AI side, if AI on, do whats is method already
+//				else if AIoff do nothing (set speed 0, heading 0)
+// Else if NEAT side, then gather info re location, pass on to Neat and use output to set speed and heading
+
 inline void FastEcslent::Potential3DMove::tick() {
 	int nEnts = entity->engine->entityMgr->nEnts;
+
+	// just shortcut
+	NEAT *NEATNet = entity->engine->engineNEATNet;
+
 	float relevantDistanceThreshold;// = 100.0f;
 	if (this->entity->entityType == SC_ZEALOT){
 		relevantDistanceThreshold = 50.0f;
 	}
 	else
 		relevantDistanceThreshold = 100.0f;
+
 	if (!done()){
-		// compute force
-		double repulsivePotential = 0.0f;
-		entity->potentialVec = Ogre::Vector3::ZERO;
-		Ogre::Vector3 tmp;
-		int nInRange = 1; // at least one so that you don't multiply by 0 later
-		for (int i = 0; i < nEnts; i++){
-			if(i != entity->entityId.id){// repulsed by all other entities
-				if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < relevantDistanceThreshold) { // Don't care about entities too far away
-					if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
-						nInRange += 1;
-						tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
+		// If side is BLUE, either use AI or ***TO ADD** DO NOTHING if AI disconnected
+		if (entity->entityId.side == BLUE) {
+			// compute force
+			double repulsivePotential = 0.0f;
+			entity->potentialVec = Ogre::Vector3::ZERO;
+			Ogre::Vector3 tmp;
+			int nInRange = 1; // at least one so that you don't multiply by 0 later
 
-						double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
-						if(val == 0)
-							val = 0.1;
+			//Capture information for all other entities: repulsivePotential
+			for (int i = 0; i < nEnts; i++){
+				if(i != entity->entityId.id){// repulsed by all other entities
+					if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < relevantDistanceThreshold) { // Don't care about entities too far away
+						if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
+							nInRange += 1;
+							tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
 
-						repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
-						entity->potentialVec += (tmp * repulsivePotential);
+							double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
+							if(val == 0)
+								val = 0.1;
+
+							repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
+							entity->potentialVec += (tmp * repulsivePotential);
+						}
 					}
 				}
 			}
+			//attracted by target
+
+
+			tmp = (entity->pos - target->location);
+			//tmp = target->location - entity->pos;
+			double targetDistance = tmp.length();
+			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
+
+			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
+
+			//applyPotential(entity, potentialVec);
+
+			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
+			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
+			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
+			}
+
+		// IF SIDE IS RED FEED NEAT
+		else if (entity->entityId.side == RED) {
+			double repulsivePotential = 0.0f;
+			float angleRad = 0;
+			int segment = 0;
+
+			entity->potentialVec = Ogre::Vector3::ZERO;
+			Ogre::Vector3 tmp;
+			int nInRange = 1; // at least one so that you don't multiply by 0 later
+			Entity *currEnt;
+
+			// initialize all NEAT inputs to 0
+			for (int i = 0; i < NEATSegments*4; i++)
+				NEATNet->input[i] = 0;
+
+			//Capture information for all other entities: repulsivePotential
+			for (int i = 0; i < nEnts; i++){
+				if(i != entity->entityId.id){// repulsed by all other entities
+					currEnt = entity->engine->entityMgr->ents[i];
+
+					//here figure out relative angle
+					// USE atan2(-entity->potentialVec.z, entity->potentialVec.x) instead????
+					angleRad = atan2(entity->pos.z - currEnt->pos.z,entity->pos.x - currEnt->pos.x);
+
+					//classify into segment and side
+					angleRad += M_PI; // add pi to make in range 0 - 2pi
+					segment = (int) angleRad / ((2 * M_PI) / NEATSegments); // divide 2pi interval by segment size to find proper segment
+					if(segment == NEATSegments) // boundary condition -- if angle is EXACTLY pi, would cause improper segment
+						segment--;
+
+					segment *= 2; // since segments come in pairs (units, average distance) multiply by 2 to find starting point
+
+
+					if (currEnt->entityId.side == RED)
+						segment += (2 * NEATSegments); // Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
+
+					NEATNet->input[segment] += 1;
+					NEATNet->input[segment+1] += entity->engine->distanceMgr->distance[entity->entityId.id][i];
+
+					//add distance to overall distance (average later)
+
+					if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < relevantDistanceThreshold) { // Don't care about entities too far away
+						if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
+							nInRange += 1;
+							tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
+
+							double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
+							if(val == 0)
+								val = 0.1;
+
+							repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
+							entity->potentialVec += (tmp * repulsivePotential);
+						}
+					}
+				}
+			}
+			//attracted by target
+
+			// convert all distances to average distance
+			for (int i = 0; i < NEATSegments*4; i += 2)
+				if (NEATNet->input[i])
+					NEATNet->input[i+1] /= NEATNet->input[i];
+
+			//Apply Neural Net
+			NEATNet->NEATProcess();
+
+			// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
+			//entity->desiredHeading = NEATNet->output[0];
+			//entity->desiredSpeed = NEATNet->output[1];
+
+			// ELIMINATE ONCE NEAT IS CONNECTED
+			tmp = (entity->pos - target->location);
+			//tmp = target->location - entity->pos;
+			double targetDistance = tmp.length();
+			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
+
+			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
+
+			//applyPotential(entity, potentialVec);
+
+			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
+			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
+			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
 		}
-		//attracted by target
-
-
-		tmp = (entity->pos - target->location);
-		//tmp = target->location - entity->pos;
-		double targetDistance = tmp.length();
-		entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
-
-		entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
-
-		//applyPotential(entity, potentialVec);
-
-		entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
-		double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
-		entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
 
 			//std::cout << "Moving " << entity->uiname << " to " << target->location.y << " Y" << std::endl;
 

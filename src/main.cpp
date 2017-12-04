@@ -82,7 +82,7 @@ pair<IMParams, IMParams> makeParams(int argc, char*argv[]){
 	return pair<IMParams, IMParams> (param1,param2);
 }
 
-Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB){
+Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB, unsigned long int maxFrames){
 	Options options;
 
 	options.enableNetworking = false;
@@ -107,7 +107,7 @@ Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB
 	options.speedup = 5.0; //300.0; //10.0;
     
     options.levelType = _64x64;
-    options.maxFrames = 10000;
+    options.maxFrames = maxFrames;
 
     options.numUnitsA = numUnitsA;
     options.numUnitsB = numUnitsB;
@@ -116,7 +116,7 @@ Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, int tacticalAI, int enableGfx) {
+int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool tacticalAI, bool enableGfx) {
 
 
 	srandom(1);
@@ -124,7 +124,7 @@ int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnit
 	pair<IMParams, IMParams> microparams = makeParams(argc, argv);
 	GA::getInstance()->setParams(microparams.first, microparams.second);
 
-	Options options = makeOptions(tacticalAI,enableGfx,numUnitsA,numUnitsB);
+	Options options = makeOptions(tacticalAI,enableGfx,numUnitsA,numUnitsB,maxFrames);
 
 	Engine *engine = new Engine(random(), options, neatNet);
 
@@ -154,25 +154,18 @@ int main(int argc, char *argv[]){
 	//std::cout << atoi(argv[2]) << std::endl;
 	double fitness;
 	NEAT *neatNet = new NEAT();
-
-	neatNet->input[0] = 1;
-	neatNet->input[2] = 3;
-	neatNet->output[0] = 1;
-	neatNet->output[1] = 1;
+	unsigned long int maxFrames = 10000;
 
 	printf("Starting Main\n");
-	// should be argc, argv, NETWORK, numUnitsA (for now "DRONES"), numUnitsB (for now "SC_ZEALOTS"), tacticalAI, enableGfx
-	// A are "friendlies", Side RED
-	// B are "Enemies", Side BLUE (I think))
-	// add maxframes
+
 	// ARGUMENTS
 	// argc, argv -- unused, left for legacy
-	// neatNet --- pointer to NEATNeuralNetworl
-	// numUnits side A
-	// numUnits side B
-	// enable tactical AI
-	// enable Graphics
-	fitness = FEEvaluate(argc,argv,neatNet,10,5,true,false); //add network
+	// neatNet --- pointer to NEATNeuralNetwork NEAT*
+	// numUnits side A 	// A are "friendlies", Side RED
+	// numUnits side B 	// B are "Enemies", Side BLUE
+	// boolean enable tactical AI
+	// boolean enable Graphics
+	fitness = FEEvaluate(argc,argv,neatNet,7,5,maxFrames,true,false);
 	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;

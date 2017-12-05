@@ -166,7 +166,7 @@ int main(int argc, char *argv[]){
 	// numUnits side B 	// B are "Enemies", Side BLUE
 	// boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
 	// boolean enable Graphics
-	fitness = FEEvaluate(argc,argv,neatNet,3,2,maxFrames,true,true);
+	fitness = FEEvaluate(argc,argv,neatNet,3,2,maxFrames,false,true);
 	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;

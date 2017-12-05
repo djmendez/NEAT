@@ -405,8 +405,9 @@ inline void FastEcslent::Potential3DMove::tick() {
 		relevantDistanceThreshold = 100.0f;
 
 	if (!done()){
-		// If side is BLUE, either use AI or ***TO ADD** DO NOTHING if AI disconnected
+		// If side is BLUE /ENEMY, either use AI or DO NOTHING if AI disconnected
 		if (entity->entityId.side == BLUE) {
+
 			// compute force
 			double repulsivePotential = 0.0f;
 			entity->potentialVec = Ogre::Vector3::ZERO;
@@ -446,9 +447,12 @@ inline void FastEcslent::Potential3DMove::tick() {
 			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
 			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
 			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
+			if (!entity->engine->options.enemyTacticalAI) { // if enemyTacticalAI is DISABLED
+				entity->desiredHeading = 0.f;
+				entity->desiredSpeed = 0.0f;
 			}
-
-		// IF SIDE IS RED FEED NEAT
+		}
+		// IF SIDE IS RED (FRIENDLY) USE NEAT
 		else if (entity->entityId.side == RED) {
 			double repulsivePotential = 0.0f;
 			float angleRad = 0;
@@ -504,8 +508,6 @@ inline void FastEcslent::Potential3DMove::tick() {
 					}
 				}
 			}
-			//attracted by target
-
 			// convert all distances to average distance
 			for (int i = 0; i < NEATSegments*4; i += 2)
 				if (NEATNet->input[i])
@@ -514,11 +516,13 @@ inline void FastEcslent::Potential3DMove::tick() {
 			//Apply Neural Net
 			NEATNet->NEATProcess();
 
+			//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
+
 			// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
 			//entity->desiredHeading = NEATNet->output[0];
 			//entity->desiredSpeed = NEATNet->output[1];
 
-			// ELIMINATE ONCE NEAT IS CONNECTED
+			// ELIMINATE BELOW ONCE NEAT IS CONNECTED
 			tmp = (entity->pos - target->location);
 			//tmp = target->location - entity->pos;
 			double targetDistance = tmp.length();
@@ -531,7 +535,9 @@ inline void FastEcslent::Potential3DMove::tick() {
 			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
 			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
 			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
+			// ELEMINATE TO HERE ONCE NEAT IS CONECTED
 		}
+	}
 
 			//std::cout << "Moving " << entity->uiname << " to " << target->location.y << " Y" << std::endl;
 
@@ -571,7 +577,7 @@ inline void FastEcslent::Potential3DMove::tick() {
 					entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);*/
 
 		// apply force
-	} else {
+	else {
 		DEBUG(std::cout << "Attractive Potential: " << entity->attractivePotential << std::endl;)
 		entity->desiredSpeed = 0.0f;
 		entity->desiredHeading = entity->heading;

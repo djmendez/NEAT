@@ -15,6 +15,7 @@ typedef struct  {
 	bool enableGfx;
 	bool enableInteraction;
 	bool tacticalAI;
+	bool enemyTacticalAI; // for NEAT project, this enables ENEMY tactical AI -- false just leaes enemy stationary
 
 	bool enableNetworking;
 	int  networkPort;

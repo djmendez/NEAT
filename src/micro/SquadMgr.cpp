@@ -219,12 +219,13 @@ double SquadMgr::getSquadScore()
 {
 		// SCENARIO B
 
-		double score;
+		double score = 0.0f;
 
-		score = (engine->gameMgr->startingNumberOfTurrets - this->enemySet.size()) * 160.0f; //100;
+		score = (engine->gameMgr->options.numUnitsB - this->enemySet.size()) * 160.0f; //100;
+		score = ((score > 0) ? score : 0.);
 
-			cout << "Enemies remain: " << (this->enemySet.size()) << endl;
-			cout << "Friendlies remain: " << (this->unitSet.size()) << endl;
+		cout << "Enemies remain: " << (this->enemySet.size()) << endl;
+		cout << "Friendlies remain: " << (this->unitSet.size()) << endl;
 
 			/*if (this->enemySet.size() == 0)
 				score += this->unitSet.size() * 100;
@@ -232,7 +233,7 @@ double SquadMgr::getSquadScore()
 			else
 				score += this->unitSet.size() * 10;*/
 
-		double hp = 0.;
+		double hp = 0.0f;
 
 		for (set<Entity*>::iterator i = this->enemySet.begin(); i != this->enemySet.end(); i++)
 		{
@@ -245,6 +246,8 @@ double SquadMgr::getSquadScore()
 		  Entity* t = *i;
 		  hp += (400.0f * t->hitpoints/t->hitpointsmax);
 		}
+
+		hp = ((hp > 0) ? hp : 0);
 
 		return (score+hp);
 

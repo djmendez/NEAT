@@ -82,7 +82,7 @@ pair<IMParams, IMParams> makeParams(int argc, char*argv[]){
 	return pair<IMParams, IMParams> (param1,param2);
 }
 
-Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB, unsigned long int maxFrames){
+Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numUnitsB, unsigned long int maxFrames){
 	Options options;
 
 	options.enableNetworking = false;
@@ -97,7 +97,8 @@ Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB
 	options.runAsEvaluator = true;
 	options.instanceId = random();
 
-	options.tacticalAI = tacticalAI;
+	options.tacticalAI = true;
+	options.enemyTacticalAI = enemyTacticalAI;
 
 	options.enableInteraction = false;
 
@@ -116,7 +117,7 @@ Options makeOptions(bool tacticalAI,bool enableGfx, int numUnitsA, int numUnitsB
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool tacticalAI, bool enableGfx) {
+int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx) {
 
 
 	srandom(1);
@@ -124,7 +125,7 @@ int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnit
 	pair<IMParams, IMParams> microparams = makeParams(argc, argv);
 	GA::getInstance()->setParams(microparams.first, microparams.second);
 
-	Options options = makeOptions(tacticalAI,enableGfx,numUnitsA,numUnitsB,maxFrames);
+	Options options = makeOptions(enemyTacticalAI,enableGfx,numUnitsA,numUnitsB,maxFrames);
 
 	Engine *engine = new Engine(random(), options, neatNet);
 
@@ -163,9 +164,9 @@ int main(int argc, char *argv[]){
 	// neatNet --- pointer to NEATNeuralNetwork NEAT*
 	// numUnits side A 	// A are "friendlies", Side RED
 	// numUnits side B 	// B are "Enemies", Side BLUE
-	// boolean enable tactical AI
+	// boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
 	// boolean enable Graphics
-	fitness = FEEvaluate(argc,argv,neatNet,7,5,maxFrames,true,false);
+	fitness = FEEvaluate(argc,argv,neatNet,3,2,maxFrames,true,true);
 	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;

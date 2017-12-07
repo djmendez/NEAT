@@ -16,8 +16,12 @@ namespace FastEcslent {
 
 	public:
 
-        float input[NEATSegments*2*2]; // input is number of segments (NEATSegments) * 2 (for each side, friendly/enemy) * 2 (one for units, other average distance)
-        float output[2]; // output: desiredHeading, desiredSpeed
+		// input is number of segments (NEATSegments) * 2 (for each side, friendly/enemy) * 2 (one for units, other average distance)
+		// Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
+        float input[NEATSegments*2*2];
+
+        // output: desiredHeading, desiredSpeed
+        float output[2];
 
         void NEATProcess(); // assumes input has been set, sets output
 

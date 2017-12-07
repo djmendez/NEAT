@@ -20,7 +20,7 @@
 #include "micro/IMParams.h"
 #include <sstream>
 #include <cstdlib>
-#include <neat.h>
+#include <blackboxneat.h>
 
 using namespace FastEcslent;
 using namespace std;
@@ -117,7 +117,7 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], NEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx) {
+int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx) {
 
 
 	srandom(1);
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]){
 	//srandom(atoi(argv[2]));
 	//std::cout << atoi(argv[2]) << std::endl;
 	double fitness;
-	NEAT *neatNet = new NEAT();
+	BlackBoxNEAT *neatNet = new BlackBoxNEAT();
 	unsigned long int maxFrames = 10000;
 
 	printf("Starting Main\n");

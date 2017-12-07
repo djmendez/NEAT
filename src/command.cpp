@@ -15,7 +15,7 @@
 #include "buildings.h"
 #include "command.h"
 #include "distanceMgr.h"
-#include <neat.h>
+#include <blackboxneat.h>
 
 //#include <command.h>
 inline bool FastEcslent::Move::done() {
@@ -395,7 +395,7 @@ inline void FastEcslent::Potential3DMove::tick() {
 	int nEnts = entity->engine->entityMgr->nEnts;
 
 	// just shortcut
-	NEAT *NEATNet = entity->engine->engineNEATNet;
+	BlackBoxNEAT *NEATNet = entity->engine->engineNEATNet;
 
 	float relevantDistanceThreshold;// = 100.0f;
 	if (this->entity->entityType == SC_ZEALOT){

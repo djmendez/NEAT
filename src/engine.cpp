@@ -17,7 +17,7 @@ using namespace boost::posix_time;
 
 using namespace std;
 
-		FastEcslent::Engine::Engine(int instId, Options opts, NEAT *neatNet) {
+		FastEcslent::Engine::Engine(int instId, Options opts, BlackBoxNEAT *neatNet) {
 			instanceId = instId;
 			options = opts;
 			quit = false;

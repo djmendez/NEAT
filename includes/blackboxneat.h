@@ -5,14 +5,14 @@
  *      Author: daniel
  */
 
-#ifndef INCLUDES_NEAT_H_
-#define INCLUDES_NEAT_H_
+#ifndef INCLUDES_BLACKBOXNEAT_H_
+#define INCLUDES_BLACKBOXNEAT_H_
 
 #include <const.h>
 
 namespace FastEcslent {
 
-	class NEAT {
+	class  BlackBoxNEAT {
 
 	public:
 
@@ -29,4 +29,4 @@ namespace FastEcslent {
 }
 
 
-#endif /* INCLUDES_NEAT_H_ */
+#endif /* INCLUDES_BLACKBOXNEAT_H_ */

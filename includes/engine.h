@@ -23,7 +23,7 @@
 #include <gfxThread.h>
 #include <netThread.h>
 #include <timer.h>
-#include <neat.h>
+#include <blackboxneat.h>
 
 //#include<params.h>
 
@@ -73,14 +73,14 @@ namespace FastEcslent {
         LevelMgr*     levelMgr;
         InfoMgr*      infoMgr;
 
-        NEAT* engineNEATNet;
+        BlackBoxNEAT* engineNEATNet;
 
 		//threads. optional Features
 
 		NetThread *net;
 		GfxThread *gfx;
 
-		Engine(int instId, Options opts, NEAT *neatNet);
+		Engine(int instId, Options opts, BlackBoxNEAT *neatNet);
 
 		~Engine();
 		//Managers

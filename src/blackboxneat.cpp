@@ -14,11 +14,9 @@
  */
 
 
-#include <neat.h>
+#include <blackboxneat.h>
 
-void FastEcslent::NEAT::NEATProcess() {
-
-
+void FastEcslent::BlackBoxNEAT::NEATProcess() {
 	output[0] = 2;
 	output[1] = 2;
 }

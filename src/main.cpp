@@ -106,7 +106,7 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
 	options.enableGfx = enableGfx;
 	options.runDebugTests = false;
 
-	options.speedup = 5.0; //300.0; //10.0;
+	options.speedup = 5; //300.0; //10.0;
     
     options.levelType = _64x64;
     options.maxFrames = maxFrames;
@@ -169,6 +169,12 @@ int* loadgameparams(const char *filename) {
     return out;
 }
 
+void savefitnesstofile(const char *filename, int fitness){
+	std::ofstream outFile(filename);
+	outFile << fitness << std::endl;
+	outFile.close();
+}
+
 int main(int argc, char *argv[]){
 //	for (int i= 0; i <5 ;i++){
 //		std::cout << m[i] << "," ;
@@ -205,6 +211,7 @@ int main(int argc, char *argv[]){
 	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4]);
 	cout << "Ending with fitness: " << fitness << endl;
 
+	savefitnesstofile("outfitness", fitness);
 	return 0;
 }
 

@@ -3,6 +3,9 @@
 using namespace std;
 using namespace NEAT;
 
+#include <link.h>
+#include <nnode.h>
+#include <map>
 
 Network *generateNetwork(vector<vector<int>> nodes, vector<Conn> links) {
 
@@ -13,29 +16,34 @@ Network *generateNetwork(vector<vector<int>> nodes, vector<Conn> links) {
     std::vector<NNode *> outlist;
     std::vector<NNode *> all_list;
 
+    map<int, NNode*> idNodeMap;
+
     //////////////////create node
     for (int nc = 0; nc < nodes.size(); nc++) {
         if (nodes[nc][1] == 1) {
             NNode *newnode = new NNode(SENSOR, nc, INPUT);
             inlist.push_back(newnode);
             all_list.push_back(newnode);
+            idNodeMap[nodes[nc][0]] = newnode;
         } else if (nodes[nc][1] == 2) {
             NNode *newnode = new NNode(NEURON, nc, OUTPUT);
             outlist.push_back(newnode);
             all_list.push_back(newnode);
+            idNodeMap[nodes[nc][0]] = newnode;
         } else {
             NNode *newnode = new NNode(NEURON, nc, HIDDEN);
             all_list.push_back(newnode);
+            idNodeMap[nodes[nc][0]] = newnode;
         }
     }
 
 
     for (int nl = 0; nl < links.size(); nl++) {
-        Link *newlink = new Link(links[nl].weight, all_list.at(links[nl].from), all_list.at(links[nl].to), false);
-        //std::cout<<links[nl].from<<"->"<<links[nl].to<<links[nl].weight<<std::endl;
-        all_list.at(links[nl].from)->outgoing.push_back(newlink);
-        all_list.at(links[nl].to)->incoming.push_back(newlink);
-    }
+           Link *newlink = new Link(links[nl].weight, idNodeMap[links[nl].from], idNodeMap[links[nl].to], false);
+           //std::cout<<links[nl].from<<"->"<<links[nl].to<<links[nl].weight<<std::endl;
+           idNodeMap[links[nl].from]->outgoing.push_back(newlink);
+           idNodeMap[links[nl].to]->incoming.push_back(newlink);
+       }
     /////////////////
 
     //Create the new network

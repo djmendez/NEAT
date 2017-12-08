@@ -149,7 +149,7 @@ void FastEcslent::Engine::run(){
 		int ms = diff.total_milliseconds();
 
 		ms = max(0, 33 - ms);//30 fps
-		boost::this_thread::sleep( boost::posix_time::milliseconds(ms) );
+		//boost::this_thread::sleep( boost::posix_time::milliseconds(ms) );
 
 		if(frames%1000==0){
 			cout<<"Current frame is: "<< frames<<", in " << (newTime-startTime).total_seconds()<<" Seconds." <<endl;

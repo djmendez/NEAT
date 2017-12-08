@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include "network.h"
-#include <neatmain.h>
 #include <fstream>
 #include <string>
 #include <sstream>

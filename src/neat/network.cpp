@@ -14,8 +14,6 @@
    limitations under the License.
 */
 #include "network.h"
-#include <iostream>
-#include <sstream>
 
 using namespace NEAT;
 
@@ -27,35 +25,6 @@ Network::Network(std::vector<NNode*> in,std::vector<NNode*> out,std::vector<NNod
   numnodes=-1;
   numlinks=-1;
   net_id=netid;
-  adaptable=false;
-}
-
-Network::Network(std::vector<NNode*> in,std::vector<NNode*> out,std::vector<NNode*> all,int netid, bool adaptval) {
-  inputs=in;
-  outputs=out;
-  all_nodes=all;
-  name=0;   //Defaults to no name  ..NOTE: TRYING TO PRINT AN EMPTY NAME CAN CAUSE A CRASH                                    
-  numnodes=-1;
-  numlinks=-1;
-  net_id=netid;
-  adaptable=adaptval;
-}
-
-
-Network::Network(int netid) {
-			name=0; //Defaults to no name
-			numnodes=-1;
-			numlinks=-1;
-			net_id=netid;
-			adaptable=false;
-		}
-
-Network::Network(int netid, bool adaptval) {
-  name=0; //Defaults to no name                                                                                               
-  numnodes=-1;
-  numlinks=-1;
-  net_id=netid;
-  adaptable=adaptval;
 }
 
 
@@ -85,7 +54,6 @@ Network::Network(const Network& network)
 	numnodes = network.numnodes;
 	numlinks = network.numlinks;
 	net_id = network.net_id;
-	adaptable = network.adaptable;
 }
 
 Network::~Network() {
@@ -132,29 +100,23 @@ bool Network::outputsoff() {
 }
 
 // Print the connections weights to a file separated by only carriage returns
-void Network::print_links_tofile(char *filename) {
-	std::vector<NNode*>::iterator curnode;
-	std::vector<Link*>::iterator curlink;
-
-    std::ofstream oFile(filename);
-
-	//Make sure it worked
-	//if (!oFile) {
-	//	cerr<<"Can't open "<<filename<<" for output"<<endl;
-		//return 0;
-	//}
-
-	for(curnode=all_nodes.begin();curnode!=all_nodes.end();++curnode) {
-		if (((*curnode)->type)!=SENSOR) {
-			for(curlink=((*curnode)->incoming).begin(); curlink!=((*curnode)->incoming).end(); ++curlink) {
-                oFile << (*curlink)->in_node->node_id << " -> " <<( *curlink)->out_node->node_id << " : " << (*curlink)->weight << std::endl;
-			} // end for loop on links
-		} //end if
-	} //end for loop on nodes
-
-	oFile.close();
-
-} //print_links_tofile
+//void Network::print_links_tofile(char *filename) {
+//	std::vector<NNode*>::iterator curnode;
+//	std::vector<Link*>::iterator curlink;
+//
+//    std::ofstream oFile(filename);
+//
+//	for(curnode=all_nodes.begin();curnode!=all_nodes.end();++curnode) {
+//		if (((*curnode)->type)!=SENSOR) {
+//			for(curlink=((*curnode)->incoming).begin(); curlink!=((*curnode)->incoming).end(); ++curlink) {
+//                oFile << (*curlink)->in_node->node_id << " -> " <<( *curlink)->out_node->node_id << " : " << (*curlink)->weight << std::endl;
+//			} // end for loop on links
+//		} //end if
+//	} //end for loop on nodes
+//
+//	oFile.close();
+//
+//} //print_links_tofile
 
 // Activates the net such that all outputs are active
 // Returns true on success;
@@ -195,19 +157,13 @@ bool Network::activate() {
 
 				// For each incoming connection, add the activity from the connection to the activesum 
 				for(curlink=((*curnode)->incoming).begin();curlink!=((*curnode)->incoming).end();++curlink) {
-					//Handle possible time delays
-					if (!((*curlink)->time_delay)) {
+
 						add_amount=((*curlink)->weight)*(((*curlink)->in_node)->get_active_out());
 						if ((((*curlink)->in_node)->active_flag)||
 							(((*curlink)->in_node)->type==SENSOR)) (*curnode)->active_flag=true;
 						(*curnode)->activesum+=add_amount;
 						//std::cout<<"Node "<<(*curnode)->node_id<<" adding "<<add_amount<<" from node "<<((*curlink)->in_node)->node_id<<std::endl;
-					}
-					else {
-						//Input over a time delayed connection
-						add_amount=((*curlink)->weight)*(((*curlink)->in_node)->get_active_out_td());
-						(*curnode)->activesum+=add_amount;
-					}
+
 
 				} //End for over incoming links
 
@@ -224,20 +180,14 @@ bool Network::activate() {
 					//cout<<"Activating "<<(*curnode)->node_id<<" with "<<(*curnode)->activesum<<": ";
 
 					//Keep a memory of activations for potential time delayed connections
-					(*curnode)->last_activation2=(*curnode)->last_activation;
+
 					(*curnode)->last_activation=(*curnode)->activation;
 
-					//If the node is being overrided from outside,
-					//stick in the override value
-					if ((*curnode)->overridden()) {
-						//Set activation to the override value and turn off override
-						(*curnode)->activate_override();
-					}
-					else {
+
 						//Now run the net activation through an activation function
 						if ((*curnode)->ftype==SIGMOID)
-							(*curnode)->activation=NEAT::fsigmoid((*curnode)->activesum,4.924273,2.4621365);  //Sigmoidal activation- see comments under fsigmoid
-					}
+							(*curnode)->activation=fsigmoid((*curnode)->activesum,4.924273,2.4621365);  //Sigmoidal activation- see comments under fsigmoid
+
 					//cout<<(*curnode)->activation<<endl;
 
 					//Increment the activation_count
@@ -250,84 +200,26 @@ bool Network::activate() {
 		onetime=true;
 	}
 
-	if (adaptable) {
-
-	  //std::cout << "ADAPTING" << std:endl;
-
-	  // ADAPTATION:  Adapt weights based on activations 
-	  for(curnode=all_nodes.begin();curnode!=all_nodes.end();++curnode) {
-	    //Ignore SENSORS
-	    
-	    //cout<<"On node "<<(*curnode)->node_id<<endl;
-	    
-	    if (((*curnode)->type)!=SENSOR) {
-	      
-	      // For each incoming connection, perform adaptation based on the trait of the connection 
-	      for(curlink=((*curnode)->incoming).begin();curlink!=((*curnode)->incoming).end();++curlink) {
-		
-		if (((*curlink)->trait_id==2)||
-		    ((*curlink)->trait_id==3)||
-		    ((*curlink)->trait_id==4)) {
-		  
-		  //In the recurrent case we must take the last activation of the input for calculating hebbian changes
-		  if ((*curlink)->is_recurrent) {
-		    (*curlink)->weight=
-		      hebbian((*curlink)->weight,maxweight,
-			      (*curlink)->in_node->last_activation, 
-			      (*curlink)->out_node->get_active_out(),
-			      (*curlink)->params[0],(*curlink)->params[1],
-			      (*curlink)->params[2]);
-		    
-		    
-		  }
-		  else { //non-recurrent case
-		    (*curlink)->weight=
-		      hebbian((*curlink)->weight,maxweight,
-			      (*curlink)->in_node->get_active_out(), 
-			      (*curlink)->out_node->get_active_out(),
-			      (*curlink)->params[0],(*curlink)->params[1],
-			      (*curlink)->params[2]);
-		  }
-		}
-		
-	      }
-	      
-	    }
-	    
-	  }
-	  
-	} //end if (adaptable)
-
 	return true;  
 }
 
-// THIS WAS NOT USED IN THE FINAL VERSION, AND NOT FULLY IMPLEMENTED,   
-// BUT IT SHOWS HOW SOMETHING LIKE THIS COULD BE INITIATED
-// Note that checking networks for loops in general in not necessary
-// and therefore I stopped writing this function
-// Check Network for loops.  Return true if its ok, false if there is a loop.
-//bool Network::integrity() {
-//  std::vector<NNode*>::iterator curnode;
-//  std::vector<std::vector<NNode*>*> paths;
-//  int count;
-//  std::vector<NNode*> *newpath;
-//  std::vector<std::vector<NNode*>*>::iterator curpath;
+double Network::fsigmoid(double activesum,double slope,double constant) {
+	//RIGHT SHIFTED ---------------------------------------------------------
+	//return (1/(1+(exp(-(slope*activesum-constant))))); //ave 3213 clean on 40 runs of p2m and 3468 on another 40
+	//41394 with 1 failure on 8 runs
 
-//  for(curnode=outputs.begin();curnode!=outputs.end();++curnode) {
-//    newpath=new std::vector<NNode*>();
-//    paths.push_back(newpath);
-//    if (!((*curnode)->integrity(newpath))) return false;
-//  }
+	//LEFT SHIFTED ----------------------------------------------------------
+	//return (1/(1+(exp(-(slope*activesum+constant))))); //original setting ave 3423 on 40 runs of p2m, 3729 and 1 failure also
 
-//Delete the paths now that we are done
-//  curpath=paths.begin();
-//  for(count=0;count<paths.size();count++) {
-//    delete (*curpath);
-//    curpath++;
-//  }
+	//PLAIN SIGMOID ---------------------------------------------------------
+	//return (1/(1+(exp(-activesum)))); //3511 and 1 failure
 
-//  return true;
-//}
+	//LEFT SHIFTED NON-STEEPENED---------------------------------------------
+	//return (1/(1+(exp(-activesum-constant)))); //simple left shifted
+
+	//NON-SHIFTED STEEPENED
+	return (1/(1+(exp(-(slope*activesum))))); //Compressed
+}
 
 // Prints the values of its outputs
 void Network::show_activation() {
@@ -400,20 +292,6 @@ void Network::load_sensors(const std::vector<float> &sensvals) {
 			//sensvals++;
 		}
 	}
-}
-
-
-// Takes and array of output activations and OVERRIDES 
-// the outputs' actual activations with these values (for adaptation)
-void Network::override_outputs(double* outvals) {
-
-	std::vector<NNode*>::iterator outPtr;
-
-	for(outPtr=outputs.begin();outPtr!=outputs.end();++outPtr) {
-		(*outPtr)->override_output(*outvals);
-		outvals++;
-	}
-
 }
 
 void Network::give_name(char *newname) {
@@ -523,28 +401,6 @@ void Network::destroy() {
 	for(curnode=all_nodes.begin();curnode!=all_nodes.end();++curnode) {
 		delete (*curnode);
 	}
-
-
-	// ----------------------------------- 
-
-	//  OLD WAY-the old way collected the nodes together and then deleted them
-
-	//for(curnode=outputs.begin();curnode!=outputs.end();++curnode) {
-	//cout<<seenstd::vector<<endl;
-	//cout<<curnode<<endl;
-	//cout<<curnode->node_id<<endl;
-
-	//  location=find(seenlist.begin(),seenlist.end(),(*curnode));
-	//  if (location==seenlist.end()) {
-	//    seenlist.push_back(*curnode);
-	//    destroy_helper((*curnode),seenlist);
-	//  }
-	//}
-
-	//Now destroy the seenlist, which is all the NNodes in the network
-	//for(curnode=seenlist.begin();curnode!=seenlist.end();++curnode) {
-	//  delete (*curnode);
-	//}
 }
 
 void Network::destroy_helper(NNode *curnode,std::vector<NNode*> &seenlist) {
@@ -589,18 +445,6 @@ bool Network::is_recur(NNode *potin_node,NNode *potout_node,int &count,int thres
 		}
 		return false;
 	}
-}
-
-int Network::input_start() {
-	input_iter=inputs.begin();
-	return 1;
-}
-
-int Network::load_in(double d) {
-	(*input_iter)->sensor_load(d);
-	input_iter++;
-	if (input_iter==inputs.end()) return 0;
-	else return 1;
 }
 
 

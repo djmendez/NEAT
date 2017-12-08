@@ -11,6 +11,7 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 
 #include <engine.h>
 #include <entityMgr.h>
@@ -149,12 +150,46 @@ int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int
 	return fitness;
 }
 
+
+int* loadgameparams(const char *filename) {
+    ifstream infile(filename, ios::in);
+    std::string line;
+    int a,b,c,d,e;
+    if (!std::getline(infile, line)) {
+        return nullptr;
+    }
+    std::istringstream iss(line);
+    iss >> a;
+    iss >> b;
+    iss >> c;
+    iss >> d;
+    iss >> e;
+    int* out = new int[5]{a,b,c,d,e};
+    infile.close();
+    return out;
+}
+
 int main(int argc, char *argv[]){
-//	srandom(time(NULL));
+//	for (int i= 0; i <5 ;i++){
+//		std::cout << m[i] << "," ;
+//	}
+//	std::cout<<std::endl;
+//	BlackBoxNEAT *myneat = new BlackBoxNEAT();
+//	myneat->loadFromFile("networkconf");
+//	myneat->input[0]= 1;//bias
+//	myneat->input[1]= 0;
+//	myneat->input[2]= 0;
+//	myneat->NEATProcess();
+//	std::cout <<"xorout"<< myneat->output[0] <<std::endl;
+
+	//srandom(time(NULL));
 	//srandom(atoi(argv[2]));
 	//std::cout << atoi(argv[2]) << std::endl;
+
+
 	double fitness;
 	BlackBoxNEAT *neatNet = new BlackBoxNEAT();
+	neatNet->loadFromFile("networkconf");
 	unsigned long int maxFrames = 10000;
 
 	printf("Starting Main\n");
@@ -166,7 +201,8 @@ int main(int argc, char *argv[]){
 	// numUnits side B 	// B are "Enemies", Side BLUE
 	// boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
 	// boolean enable Graphics
-	fitness = FEEvaluate(argc,argv,neatNet,3,2,maxFrames,false,true);
+	int* m = loadgameparams("gameparams");
+	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4]);
 	cout << "Ending with fitness: " << fitness << endl;
 
 	return 0;

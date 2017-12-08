@@ -18,12 +18,12 @@
 
 #include <algorithm>
 #include <vector>
-#include "neat.h"
 #include "nnode.h"
+#include <iostream>
+#include <sstream>
+#include <cstring>
 
 namespace NEAT {
-
-    class Genome;
 
 	// ----------------------------------------------------------------------- 
 	// A NETWORK is a LIST of input NODEs and a LIST of output NODEs           
@@ -31,17 +31,12 @@ namespace NEAT {
 	//   or learn on its own, even though it may be part of a larger framework 
 	class Network {
 
-		friend class Genome;
-
-	//protected:
 	public:
 
 		int numnodes; // The number of nodes in the net (-1 means not yet counted)
 		int numlinks; //The number of links in the net (-1 means not yet counted)
 
 		std::vector<NNode*> all_nodes;  // A list of all the nodes
-
-		std::vector<NNode*>::iterator input_iter;  // For GUILE network inputting  
 
 		void destroy();  // Kills all nodes and links within
 		void destroy_helper(NNode *curnode,std::vector<NNode*> &seenlist); // helper for above
@@ -51,30 +46,13 @@ namespace NEAT {
 
 	public:
 
-		Genome *genotype;  // Allows Network to be matched with its Genome
-
 		char *name; // Every Network or subNetwork can have a name
 		std::vector<NNode*> inputs;  // NNodes that input into the network
 		std::vector<NNode*> outputs; // Values output by the network
 
 		int net_id; // Allow for a network id
 
-		double maxweight; // Maximum weight in network for adaptation purposes
-
-		bool adaptable; // Tells whether network can adapt or not
-
-		// This constructor allows the input and output lists to be supplied
-		// Defaults to not using adaptation
 		Network(std::vector<NNode*> in,std::vector<NNode*> out,std::vector<NNode*> all,int netid);
-
-		//Same as previous constructor except the adaptibility can be set true or false with adaptval
-		Network(std::vector<NNode*> in,std::vector<NNode*> out,std::vector<NNode*> all,int netid, bool adaptval);
-
-		// This constructs a net with empty input and output lists
-		Network(int netid);
-
-		//Same as previous constructor except the adaptibility can be set true or false with adaptval
-		Network(int netid, bool adaptval);
 
 		// Copy Constructor
 		Network(const Network& network);
@@ -89,6 +67,23 @@ namespace NEAT {
 
 		// Activates the net such that all outputs are active
 		bool activate();
+
+		// SIGMOID FUNCTION ********************************
+		// This is a signmoidal activation function, which is an S-shaped squashing function
+		// It smoothly limits the amplitude of the output of a neuron to between 0 and 1
+		// It is a helper to the neural-activation function get_active_out
+		// It is made inline so it can execute quickly since it is at every non-sensor
+		// node in a network.
+		// NOTE:  In order to make node insertion in the middle of a link possible,
+		// the signmoid can be shifted to the right and more steeply sloped:
+		// slope=4.924273
+		// constant= 2.4621365
+		// These parameters optimize mean squared error between the old output,
+		// and an output of a node inserted in the middle of a link between
+		// the old output and some other node.
+		// When not right-shifted, the steepened slope is closest to a linear
+		// ascent as possible between -0.5 and 0.5
+		double fsigmoid(double,double,double);
 
 		// Prints the values of its outputs
 		void show_activation();
@@ -105,10 +100,6 @@ namespace NEAT {
 		void load_sensors(double*);
 		void load_sensors(const std::vector<float> &sensvals);
 
-		// Takes and array of output activations and OVERRIDES the outputs' actual 
-		// activations with these values (for adaptation)
-		void override_outputs(double*);
-
 		// Name the network
 		void give_name(char*);
 
@@ -121,19 +112,13 @@ namespace NEAT {
 		// This checks a POTENTIAL link between a potential in_node
 		// and potential out_node to see if it must be recurrent 
 		// Use count and thresh to jump out in the case of an infinite loop 
-		bool is_recur(NNode *potin_node,NNode *potout_node,int &count,int thresh); 
-
-		// Some functions to help GUILE input into Networks   
-		int input_start();
-		int load_in(double d);
+		bool is_recur(NNode *potin_node,NNode *potout_node,int &count,int thresh);
 
 		// If all output are not active then return true
 		bool outputsoff();
 
-		// Just print connections weights with carriage returns
-		void print_links_tofile(char *filename);
-
 		int max_depth();
+
 
 	};
 

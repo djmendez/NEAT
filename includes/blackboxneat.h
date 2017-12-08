@@ -9,6 +9,9 @@
 #define INCLUDES_BLACKBOXNEAT_H_
 
 #include <const.h>
+#include <network.h>
+#include <utility>
+#include <neatmain.h>
 
 namespace FastEcslent {
 
@@ -16,11 +19,15 @@ namespace FastEcslent {
 
 	public:
 
-        float input[NEATSegments*2*2]; // input is number of segments (NEATSegments) * 2 (for each side, friendly/enemy) * 2 (one for units, other average distance)
-        float output[2]; // output: desiredHeading, desiredSpeed
+		bool loadFromFile(const char *filename);
+
+        double input[NEATSegments*2*2]; // input is number of segments (NEATSegments) * 2 (for each side, friendly/enemy) * 2 (one for units, other average distance)
+        double output[2]; // output: desiredHeading, desiredSpeed
 
         void NEATProcess(); // assumes input has been set, sets output
 
+	private:
+        NEAT::Network *net;
 	};
 }
 

@@ -1,18 +1,10 @@
-#include <iostream>
-#include "nnode.h"
-#include "network.h"
-#include "link.h"
+#include <neatmain.h>
 
+using namespace std;
 using namespace NEAT;
 
 
-struct conn {
-    int from;
-    int to;
-    double weight;
-};
-
-Network *generateNetwork(int nodes[], int ncount, conn links[], int linkcount) {
+Network *generateNetwork(vector<vector<int>> nodes, vector<Conn> links) {
 
     //Inputs and outputs will be collected here for the network
     //All nodes are collected in an all_list-
@@ -22,20 +14,23 @@ Network *generateNetwork(int nodes[], int ncount, conn links[], int linkcount) {
     std::vector<NNode *> all_list;
 
     //////////////////create node
-    for (int nc = 0; nc < ncount; nc++) {
-        if (nodes[nc] == 1) {
+    for (int nc = 0; nc < nodes.size(); nc++) {
+        if (nodes[nc][1] == 1) {
             NNode *newnode = new NNode(SENSOR, nc, INPUT);
             inlist.push_back(newnode);
             all_list.push_back(newnode);
-        } else if (nodes[nc] == 2) {
+        } else if (nodes[nc][1] == 2) {
             NNode *newnode = new NNode(NEURON, nc, OUTPUT);
             outlist.push_back(newnode);
+            all_list.push_back(newnode);
+        } else {
+            NNode *newnode = new NNode(NEURON, nc, HIDDEN);
             all_list.push_back(newnode);
         }
     }
 
 
-    for (int nl = 0; nl < linkcount; nl++) {
+    for (int nl = 0; nl < links.size(); nl++) {
         Link *newlink = new Link(links[nl].weight, all_list.at(links[nl].from), all_list.at(links[nl].to), false);
         //std::cout<<links[nl].from<<"->"<<links[nl].to<<links[nl].weight<<std::endl;
         all_list.at(links[nl].from)->outgoing.push_back(newlink);
@@ -47,26 +42,18 @@ Network *generateNetwork(int nodes[], int ncount, conn links[], int linkcount) {
     //The new network
     Network *newnet = new Network(inlist, outlist, all_list, 1);
 
-    newnet->maxweight = 1; //absolute magnitude for adaptationi purpose
-
     return newnet;
 }
 
 
-bool evaluate(Network *net, double in[], double out[]) {
-
-    bool success;  //Check for successful activation
-
-    int net_depth = 2; //The max depth of the network to be activated
-
-
-    net_depth = net->max_depth();
+bool activate(Network *net, double in[], double out[]) {
     net->load_sensors(in);
 
     //Relax net and get output
-    success = net->activate();
+    bool success = net->activate();//Check for successful activation
 
     //use depth to ensure relaxation
+    int net_depth = net->max_depth();
     for (int relax = 0; relax <= net_depth; relax++) {
         success = net->activate();
     }
@@ -75,51 +62,153 @@ bool evaluate(Network *net, double in[], double out[]) {
         return false;
     }
 
-
     int count = 0;
     for (auto curnode: net->outputs) {
         out[count] = (curnode)->activation;
         count++;
     }
 
-    net->flush();
-
-
+    //net->flush();
     return true;
 }
 
-
-int mainula() {
-
-    double in[4][3] = {{0.0, 0.0, 1.0},
-                       {0.0, 1.0, 1.0},
-                       {1.0, 0.0, 1.0},
-                       {1.0, 1.0, 1.0}};
-
-
-    int nodes[]{1, 1, 1, 2, 2};
-    conn links[]{conn{0, 3, 1.0}, conn{2, 3, 1.0}, conn{1, 4, 1.0}, conn{2, 4, -1.0}};
-
-    double out[2];
-
-    Network *n = generateNetwork(nodes, 5, links, 4);
-    std::cout<<n->linkcount()<<","<<n->nodecount()<<std::endl;
-
-
-    for (int j = 0; j < 4; j++) {
-        evaluate(n, in[j], out);
-
-        for (int i = 0; i < 2; i++) {
-            if (out[i] < 0.0001) {
-                std::cout << 0 << ",";
-            } else {
-                std::cout << out[i] << ",";
-            }
+bool hasLink(Link *link, const std::vector<Conn> &vec) {
+    for (auto con: vec) {
+        if (link->in_node->node_id == con.from && link->out_node->node_id == con.to) {
+            return true;
         }
-        std::cout << std::endl;
     }
-
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    return false;
 }
 
+void exporttofile(char *filename, Network *net) {
+    std::ofstream outFile(filename);
+
+    std::vector<NNode *>::iterator curnode;
+
+    std::vector<Conn> links;
+
+    outFile << net->all_nodes.size() << std::endl;
+
+    for (auto nodes: net->all_nodes) {
+        outFile << nodes->node_id << " " << nodes->placement << std::endl;
+
+        for (auto inLinks : nodes->incoming) {
+            if (!hasLink(inLinks, links)) {
+                links.push_back(Conn{inLinks->in_node->node_id, inLinks->out_node->node_id, inLinks->weight});
+            }
+        }
+        for (auto outLinks : nodes->incoming) {
+            if (!hasLink(outLinks, links)) {
+                links.push_back(Conn{outLinks->in_node->node_id, outLinks->out_node->node_id, outLinks->weight});
+            }
+        }
+    }
+
+    outFile << links.size() << std::endl;
+    for (auto lnk: links) {
+        outFile << lnk.from << " " << lnk.to << " " << lnk.weight << std::endl;
+    }
+    outFile.close();
+}
+
+
+pair<bool,Network*> importformfile(const char *filename) {
+    ifstream infile(filename, ios::in);
+    vector<vector<int>> nodes;
+    vector<Conn> links;
+
+    std::string line;
+    int a;
+
+    if (!std::getline(infile, line)) {
+        return {false, nullptr};
+    }
+
+    std::istringstream iss(line);
+    iss >> a;
+
+    int b, c;
+    double d;
+    for (int i = 0; i < a; i++) {
+        if (!std::getline(infile, line)) {
+            return {false, nullptr};
+        }
+        std::istringstream iss(line);
+        iss >> b;
+        iss >> c;
+        nodes.push_back(vector<int>{b, c});
+    }
+
+    if (!std::getline(infile, line)) {
+        return {false, nullptr};
+    }
+
+    std::istringstream is2(line);
+    is2 >> a;
+
+    for (int i = 0; i < a; i++) {
+
+        if (!std::getline(infile, line)) {
+            return {false, nullptr};
+        }
+        std::istringstream iss(line);
+        iss >> b;
+        iss >> c;
+        iss >> d;
+        links.push_back(Conn{b, c, d});
+    }
+    Network *net=  generateNetwork(nodes, links);
+
+    for (auto n :nodes){
+        std::cout << n[0] << "," << n[1] << std::endl;
+    }
+
+    for (auto l :links){
+        std::cout << l.from << " " << l.to << " " << l.weight << std::endl;
+    }
+
+    infile.close();
+    return {true, net};
+}
+
+int mymain(int argc, char *argv[]) {
+
+    double in[4][3] = {{1.0, 0.0, 0.0},
+                       {1.0, 0.0, 1.0},
+                       {1.0, 1.0, 0.0},
+                       {1.0, 1.0, 1.0}};
+
+    ////////////0, 1, 2, 3, 4, 5
+    vector<vector<int>> nodes{vector<int>{0, 1}, vector<int>{1, 1}, vector<int>{2, 1}, vector<int>{3, 2}, vector<int>{4, 0}, vector<int>{5, 0},
+                              vector<int>{6, 0}};
+
+    vector<Conn> conns{Conn{0, 3, -6.14299},
+                       Conn{2, 3, 5.49373},
+                       Conn{1, 4, 4.68038},
+                       Conn{4, 3, 8},
+                       Conn{2, 4, -5.75357},
+                       Conn{2, 5, -3.7923},
+                       Conn{5, 4, -3.03612},
+                       Conn{1, 6, -1.32465},
+                       Conn{6, 3, 2.47735},};
+
+//    Network *net = generateNetwork(nodes, conns);
+
+    const pair<bool, Network *> &p = importformfile("test");
+    if (!p.first) {
+        return -1;
+    }
+    Network *net = p.second;
+
+    double out[1];
+    net->flush();
+
+    for (int i = 0; i < 4; i++) {
+        activate(net, in[i], out);
+        cout << (out[0] > 0.5 ? 1 : 0) << "," << out[0] << endl;
+    }
+
+
+    return 0;
+}

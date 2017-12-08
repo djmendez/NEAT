@@ -22,6 +22,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
+#include <math.h>
 
 namespace NEAT {
 

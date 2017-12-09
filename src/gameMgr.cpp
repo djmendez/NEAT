@@ -25,6 +25,8 @@
 #include <cfloat>
 #include "DEBUG.h"
 
+#include <time.h>
+
 //FastEcslent::GameMgr::GameMgr() {
 //	gameNumber = 0;
 	//reset();
@@ -278,137 +280,36 @@ void FastEcslent::GameMgr::StarCraft(){
 	}
 
 
-	int randCornerRed = 3;//random() % 8; //3
-	int randCornerBlue = 0;//random() % 8; //0
+	// FOR NEAT GAME:
+	// Set up blue side alway at X = Z = 1000
+	// Then spread out red (NEAT) side at a radius on diffPoints around the circumference
+	int redX, redY = 100, redZ;
+	int blueX  = 1000, blueY = 100, blueZ = 1000;
+	int diffPoints = 8;
+	float radius = 800.0f;
 
-	while (randCornerRed == randCornerBlue)
-		randCornerBlue = random() % 8;
+	// find a random starting position
+	// DISCUSS WITH AAVAAS -- THIS IS TO MAKE STARTING POSITION TRULY P-RANDOM BUT MEANS WONT BE REPEATABLE
+	int randCornerRed;
+	srandom(time(NULL));
+	randCornerRed = random() % diffPoints;
+	//int randCornerBlue = 0;//random() % 8; //0
 
-	int redX, redY, redZ;
-	int blueX, blueY, blueZ;
 
+	float angle;
+	angle = ((float)randCornerRed / diffPoints)* (2 * M_PI);
 
-	if (randCornerRed == 0)
-	{
-		redX = 400;
-		redY = 100;
-		redZ = 400;
-	}
+	redX =  blueX + (int) (radius * cos(angle));
+	redZ =  blueZ + (int) (radius * sin(angle));
 
-	else if (randCornerRed == 1)
-	{
-		redX = 1648;
-		redY = 100;
-		redZ = 400;
-	}
-
-	else if (randCornerRed == 2)
-	{
-		redX = 400;
-		redY = 100;
-		redZ = 1648;
-	}
-
-	else if (randCornerRed == 3)
-	{
-		redX = 1948;
-		redY = 100;
-		redZ = 1948;
-	}
-
-	else if (randCornerRed == 4)
-	{
-		redX = 400;
-		redY = 1948;
-		redZ = 400;
-	}
-
-	else if (randCornerRed == 5)
-	{
-		redX = 1648;
-		redY = 1948;
-		redZ = 400;
-	}
-
-	else if (randCornerRed == 6)
-	{
-		redX = 400;
-		redY = 1948;
-		redZ = 1648;
-	}
-
-	else if (randCornerRed == 7)
-	{
-		redX = 1648;
-		redY = 1948;
-		redZ = 1648;
-	}
-
-	if (randCornerBlue == 0)
-	{
-		blueX = 800;
-		blueY = 100;
-		blueZ = 800;
-	}
-
-	else if (randCornerBlue == 1)
-	{
-		blueX = 1648;
-		blueY = 100;
-		blueZ = 400;
-	}
-
-	else if (randCornerBlue == 2)
-	{
-		blueX = 400;
-		blueY = 100;
-		blueZ = 1648;
-	}
-
-	else if (randCornerBlue == 3)
-	{
-		blueX = 1648;
-		blueY = 100;
-		blueZ = 1648;
-	}
-
-	else if (randCornerBlue == 4)
-	{
-		blueX = 400;
-		blueY = 1948;
-		blueZ = 400;
-	}
-
-	else if (randCornerBlue == 5)
-	{
-		blueX = 1648;
-		blueY = 1948;
-		blueZ = 400;
-	}
-
-	else if (randCornerBlue == 6)
-	{
-		blueX = 400;
-		blueY = 1948;
-		blueZ = 1648;
-	}
-
-	else if (randCornerBlue == 7)
-	{
-		blueX = 1648;
-		blueY = 1948;
-		blueZ = 1648;
-	}
-
-	float offset = 400.0f;
+//	float offset = 400.0f;
 //	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(offset, 0, offset), 250.0f, 0.06f);
 //	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(offset*4, 0, offset*4), 250.0f, 0.ecto06f);
 
-	originalSideDistances = sqrt(pow(blueX - redX, 2) + pow(blueZ - redZ,2));
-
+	originalSideDistances = radius;
+	std::cout << "Starting Friendly(RED) side positions at (" << redX << "," <<redZ << ")" << std::endl;
 	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(redX,redY,redZ), 250.0f, 0.06f);
 	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(blueX,blueY,blueZ) , 250.0f, 0.06f);
-
 
 	//makeTerrain();
 	//makeBaseForSidePlayer(YELLOW, THREE, Ogre::Vector3(-offset, 0, offset), 550.0f, 0.06f);

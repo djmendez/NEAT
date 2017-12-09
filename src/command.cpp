@@ -533,27 +533,27 @@ inline void FastEcslent::Potential3DMove::tick() {
 			}
 
 			//Apply Neural Net
-			//NEATNet->NEATProcess();
+			NEATNet->NEATProcess();
 
 			//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
 
 			// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
-			entity->desiredHeading = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
-			entity->desiredSpeed = (NEATNet->output[1] - .5) * M_PI;
+			entity->desiredSpeed = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
+			entity->desiredHeading = (NEATNet->output[1] - .5) * M_PI;
 
 			/* ELIMINATE BELOW ONCE NEAT IS CONNECTED */
-			tmp = (entity->pos - target->location);
-			//tmp = target->location - entity->pos;
-			double targetDistance = tmp.length();
-			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
-
-			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
-
-			//applyPotential(entity, potentialVec);
-
-			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
-			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
-			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
+//			tmp = (entity->pos - target->location);
+//			//tmp = target->location - entity->pos;
+//			double targetDistance = tmp.length();
+//			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
+//
+//			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
+//
+//			//applyPotential(entity, potentialVec);
+//
+//			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
+//			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
+//			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
 			/* ELEMINATE TO HERE ONCE NEAT IS CONECTED */
 		}
 	}

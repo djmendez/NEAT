@@ -91,11 +91,10 @@ void InfoMgr::tick(){
 			ptime startTime = this->engine->startTime;
 			long duration = (endTime - startTime).total_seconds();
 
-			double score = this->squadmgr_red->getSquadScore();
-
-			cout<< "Final Score is: " << score << ", Game duration: " << duration << " seconds";
-
+			// double score = this->squadmgr_red->getSquadScore();
 			// std::cout << score << std::endl;
+
+			cout<< "Game duration: " << duration << " seconds" << endl;
 
 			// if graphics force exit so as not to wait for thread -- else will popup and terminate nicely - eeeeww: yes, i know
 			if (this->engine->options.enableGfx)

@@ -66,6 +66,9 @@ namespace FastEcslent {
 		double droneCost;
 		double turretCost;
 
+		// add NEAT fitness function parameters
+		double originalSideDistances;
+
 		Options options;
 		//game
 		int popCap[NPLAYERS];

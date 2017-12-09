@@ -120,7 +120,6 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
 //should be network, number_units, tacticalAI
 int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx) {
 
-
 	srandom(1);
 
 	pair<IMParams, IMParams> microparams = makeParams(argc, argv);
@@ -195,7 +194,7 @@ int main(int argc, char *argv[]){
 
 	double fitness;
 	BlackBoxNEAT *neatNet = new BlackBoxNEAT();
-	neatNet->loadFromFile("networkconf");
+//	neatNet->loadFromFile("networkconf");
 	unsigned long int maxFrames = 10000;
 
 	printf("Starting Main\n");
@@ -208,6 +207,7 @@ int main(int argc, char *argv[]){
 	// boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
 	// boolean enable Graphics
 	int* m = loadgameparams("gameparams");
+
 	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4]);
 	cout << "Ending with fitness: " << fitness << endl;
 

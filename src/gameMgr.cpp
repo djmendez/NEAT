@@ -311,9 +311,9 @@ void FastEcslent::GameMgr::StarCraft(){
 
 	else if (randCornerRed == 3)
 	{
-		redX = 1648;
+		redX = 1948;
 		redY = 100;
-		redZ = 1648;
+		redZ = 1948;
 	}
 
 	else if (randCornerRed == 4)
@@ -402,9 +402,14 @@ void FastEcslent::GameMgr::StarCraft(){
 
 	float offset = 400.0f;
 //	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(offset, 0, offset), 250.0f, 0.06f);
-//	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(offset*4, 0, offset*4), 250.0f, 0.06f);
-	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(/*0,100,0*//*400, 100, 400*/redX,redY,redZ), 250.0f, 0.06f);
-	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(/*0,100,0*//*1648, 100, 1648*/blueX,blueY,blueZ), 250.0f, 0.06f);
+//	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(offset*4, 0, offset*4), 250.0f, 0.ecto06f);
+
+	originalSideDistances = sqrt(pow(blueX - redX, 2) + pow(blueZ - redZ,2));
+
+	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(redX,redY,redZ), 250.0f, 0.06f);
+	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(blueX,blueY,blueZ) , 250.0f, 0.06f);
+
+
 	//makeTerrain();
 	//makeBaseForSidePlayer(YELLOW, THREE, Ogre::Vector3(-offset, 0, offset), 550.0f, 0.06f);
 	//makeBaseForSidePlayer(GREEN, FOUR, Ogre::Vector3(offset, 0, -offset), 550.0f, 0.06f);
@@ -476,8 +481,8 @@ void FastEcslent::GameMgr::makeArmyForSidePlayer(Side side, Player player, Ogre:
 
 		//createNEntitiesCircle(SC_ZEALOT, startingNumberOfTurrets, side, player, location, 5);
 
-		location.x = 1948;
-		location.z = 1948;
+		//location.x = 1948;
+		//location.z = 1948;
 
 		createNEntitiesCircle(DRONE, engine->options.numUnitsA, side, player, location, 5);
 		//createNEntitiesCircle(SC_VULTURE, engine->options.numUnitsA, side, player, location, 5);

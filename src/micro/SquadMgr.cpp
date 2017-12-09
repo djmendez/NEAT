@@ -217,7 +217,12 @@ void SquadMgr::potentialMove(Entity* unit, Ogre::Vector3* target, int dist)
 
 double SquadMgr::getSquadScore()
 {
-		// SCENARIO B
+		// LEGACY Scenario
+		// FItness is enemies killed (i.e. original numbers of enemies - surviving number of enemies) * 160
+		//		+ hitpoints scored on enemies
+		// 		+ percent hitpoints remaining on friendlies * 400
+		// Notice that with no engagement, fitness will be 400 * number of friendly units
+		// For NEAT - add reduction in distances from friendlies to average position of enemies
 
 		double score = 0.0f;
 
@@ -233,23 +238,53 @@ double SquadMgr::getSquadScore()
 			else
 				score += this->unitSet.size() * 10;*/
 
-		double hp = 0.0f;
+		double hp = 0.0f, distance = 0.0f, distanceFitness = 0.0f;
+		double blueX = 0.0f, blueZ = 0.0f, redX = 0.0f, redZ = 0.0f;
 
+		// look at the hitpoints scored on the enemy
+		// also calculate average position
 		for (set<Entity*>::iterator i = this->enemySet.begin(); i != this->enemySet.end(); i++)
 		{
 		  Entity* t = *i;
 		  hp += (t->hitpointsmax - t->hitpoints);
+		  blueX += t->pos.x;
+		  blueZ += t->pos.z;
+		}
+
+		// calculate COM for enemies, assuming there are any
+		// if enemySet size is 0, blueX and blueZ will be zero
+		if (enemySet.size()) {
+			blueX /= this->enemySet.size();
+			blueZ /= this->enemySet.size();
 		}
 
 		for (set<Entity*>::iterator i = this->unitSet.begin(); i != this->unitSet.end(); i++)
 		{
 		  Entity* t = *i;
 		  hp += (400.0f * t->hitpoints/t->hitpointsmax);
+		  redX += t->pos.x;
+		  redZ += t->pos.z;
+		}
+
+		// calculate COM for friendlies, assuming there are any
+		if (this->unitSet.size()) {
+			redX /= this->unitSet.size();
+			redZ /= this->unitSet.size();
 		}
 
 		hp = ((hp > 0) ? hp : 0);
 
-		return (score+hp);
+		// if there are units on both sides, calculate the distance between COMs
+		if (this->unitSet.size() && this->enemySet.size())
+			distance = sqrt(pow(blueX - redX, 2) + pow(blueZ - redZ,2));
+		else // one side or the other has been completely destroyed -- still give full marks for distance i.e. set it to 0
+			distance = 0.0f;
+
+		// if current distance is 0, then distanceFitness will be 500 * number of friendly units [this last to scale to fitness from fight]
+		if (this->engine->gameMgr->originalSideDistances - distance > 0)
+			distanceFitness = ((this->engine->gameMgr->originalSideDistances - distance) / this->engine->gameMgr->originalSideDistances) * (500.0f * this->engine->options.numUnitsA);
+
+		return (score+hp+distanceFitness);
 
 	// Scenario C v.2
 

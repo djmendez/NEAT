@@ -51,3 +51,5 @@ local.properties
 .recommenders/
 
 *.log
+
+fe1_log\.out

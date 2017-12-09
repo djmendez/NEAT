@@ -156,7 +156,7 @@ void FastEcslent::Engine::run(){
 			cout<<"Current frame is: "<< frames<<", in " << (newTime-startTime).total_seconds()<<" Seconds." <<endl;
 		}
 	}
-	cout << endl << "Finished, running. Time run: " << diff.total_microseconds() * 0.000001f << endl;
+	printf ("Finished running. Time run: %0.6f\n", diff.total_microseconds() * 0.000001f);
 	cout << "Frames: " << frames << endl << endl;
 	//cout << "Quit: " << this->quit << endl;
 	this->quit = true;

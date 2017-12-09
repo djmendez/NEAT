@@ -194,7 +194,7 @@ int main(int argc, char *argv[]){
 
 	double fitness;
 	BlackBoxNEAT *neatNet = new BlackBoxNEAT();
-//	neatNet->loadFromFile("networkconf");
+	neatNet->loadFromFile("networkconf");
 	unsigned long int maxFrames = 10000;
 
 	printf("Starting Main\n");

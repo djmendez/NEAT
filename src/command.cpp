@@ -538,8 +538,8 @@ inline void FastEcslent::Potential3DMove::tick() {
 			//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
 
 			// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
-			//entity->desiredHeading = (NEATNet->output[0] * entity->maxSpeed);
-			//entity->desiredSpeed = (NEATNet->output[1] - .5) * M_PI;
+			entity->desiredHeading = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
+			entity->desiredSpeed = (NEATNet->output[1] - .5) * M_PI;
 
 			/* ELIMINATE BELOW ONCE NEAT IS CONNECTED */
 			tmp = (entity->pos - target->location);

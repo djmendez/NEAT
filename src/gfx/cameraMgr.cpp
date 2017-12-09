@@ -38,8 +38,11 @@ OgreGFX::CameraMgr::CameraMgr(GraphicsInteractionManager *gim): GFXMgr(gim) { //
 	//camera->setOrientation(Ogre::Quaternion::ZERO);
 	sceneManager = gim->mSceneMgr;
 	cameraNode = sceneManager->getRootSceneNode()->createChildSceneNode("cameraNode");
-	cameraNode->setPosition(1500,250,2250);
-	//cameraNode->lookAt(Ogre::Vector3(0,0,0), Ogre::Node::TS_WORLD, Ogre::Vector3(0,0,0));
+	cameraNode->setPosition(1000,2500,1000);
+	cameraNode->pitch(Ogre::Radian((-1 * M_PI) / 2));
+
+	//float direction = cameraNode->getDirection();
+	//cameraNode->lookAt(Ogre::Vector3(1000,100,1000), Ogre::Node::TS_LOCAL, Ogre::Vector3::ZERO);
 
 	pitchNode    = cameraNode->createChildSceneNode("pitchNode");
 	//yawNode  = yawNode->createChildSceneNode("pitchNode");

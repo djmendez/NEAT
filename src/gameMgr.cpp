@@ -291,8 +291,8 @@ void FastEcslent::GameMgr::StarCraft(){
 	// find a random starting position
 	// DISCUSS WITH AAVAAS -- THIS IS TO MAKE STARTING POSITION TRULY P-RANDOM BUT MEANS WONT BE REPEATABLE
 	int randCornerRed;
-	srandom(time(NULL));
-	randCornerRed = random() % diffPoints;
+
+	randCornerRed = engine->options.startFriendPos % diffPoints;
 	//int randCornerBlue = 0;//random() % 8; //0
 
 

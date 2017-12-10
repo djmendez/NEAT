@@ -83,7 +83,7 @@ pair<IMParams, IMParams> makeParams(int argc, char*argv[]){
 	return pair<IMParams, IMParams> (param1,param2);
 }
 
-Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numUnitsB, unsigned long int maxFrames){
+Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numUnitsB, unsigned long int maxFrames, int startFriendPos){
 	Options options;
 
 	options.enableNetworking = false;
@@ -114,18 +114,20 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
     options.numUnitsA = numUnitsA;
     options.numUnitsB = numUnitsB;
 
+    options.startFriendPos = startFriendPos;
+
 	return options;
 }
 
 //should be network, number_units, tacticalAI
-int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx) {
+int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int numUnitsB, unsigned long int maxFrames, bool enemyTacticalAI, bool enableGfx, int startFriendPos) {
 
 	srandom(1);
 
 	pair<IMParams, IMParams> microparams = makeParams(argc, argv);
 	GA::getInstance()->setParams(microparams.first, microparams.second);
 
-	Options options = makeOptions(enemyTacticalAI,enableGfx,numUnitsA,numUnitsB,maxFrames);
+	Options options = makeOptions(enemyTacticalAI,enableGfx,numUnitsA,numUnitsB,maxFrames,startFriendPos);
 
 	Engine *engine = new Engine(random(), options, neatNet);
 
@@ -153,7 +155,7 @@ int FEEvaluate(int argc, char *argv[], BlackBoxNEAT *neatNet, int numUnitsA, int
 int* loadgameparams(const char *filename) {
     ifstream infile(filename, ios::in);
     std::string line;
-    int a,b,c,d,e;
+    int a,b,c,d,e, f;
     if (!std::getline(infile, line)) {
         return nullptr;
     }
@@ -163,7 +165,8 @@ int* loadgameparams(const char *filename) {
     iss >> c;
     iss >> d;
     iss >> e;
-    int* out = new int[5]{a,b,c,d,e};
+    iss >> f;
+    int* out = new int[6]{a,b,c,d,e,f};
     infile.close();
     return out;
 }
@@ -208,7 +211,7 @@ int main(int argc, char *argv[]){
 	// boolean enable Graphics
 	int* m = loadgameparams("gameparams");
 
-	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4]);
+	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4],m[5]);
 	cout << "Ending with fitness: " << fitness << endl;
 
 	savefitnesstofile("outfitness", fitness);

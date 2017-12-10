@@ -1,6 +1,7 @@
-3 2 500 0 0 
+3 2 2000 0 0 4
 // numUnits side A 	// A are "friendlies", Side RED
 // numUnits side B 	// B are "Enemies", Side BLUE
 // maxnumber of frames
 // boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
 // boolean enable Graphics
+// int startFriendPos - 0 to 8, selects a point on a circle around enemies to spawn friendly units

@@ -18,12 +18,11 @@
 
 
 bool FastEcslent::BlackBoxNEAT::loadFromFile(const char *filename){
-	const std::pair<bool, NEAT::Network *> &p = importformfile(filename);
-	if (!p.first) {
+	bool good = importformfile(filename,net);
+	if (!good) {
 		std::cout << "error loading neat network" <<std::endl;
 		return false;
 	}
-	net = p.second;
 	return true;
 }
 

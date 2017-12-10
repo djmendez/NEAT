@@ -121,7 +121,7 @@ void exporttofile(char *filename, Network *net) {
 }
 
 
-pair<bool,Network*> importformfile(const char *filename) {
+bool importformfile(const char *filename, Network *&netout) {
     ifstream infile(filename, ios::in);
     vector<vector<int>> nodes;
     vector<Conn> links;
@@ -130,7 +130,7 @@ pair<bool,Network*> importformfile(const char *filename) {
     int a;
 
     if (!std::getline(infile, line)) {
-        return {false, nullptr};
+        return false;
     }
 
     std::istringstream iss(line);
@@ -140,7 +140,7 @@ pair<bool,Network*> importformfile(const char *filename) {
     double d;
     for (int i = 0; i < a; i++) {
         if (!std::getline(infile, line)) {
-            return {false, nullptr};
+            return false;
         }
         std::istringstream iss(line);
         iss >> b;
@@ -149,7 +149,7 @@ pair<bool,Network*> importformfile(const char *filename) {
     }
 
     if (!std::getline(infile, line)) {
-        return {false, nullptr};
+        return false;
     }
 
     std::istringstream is2(line);
@@ -158,7 +158,7 @@ pair<bool,Network*> importformfile(const char *filename) {
     for (int i = 0; i < a; i++) {
 
         if (!std::getline(infile, line)) {
-            return {false, nullptr};
+            return false;
         }
         std::istringstream iss(line);
         iss >> b;
@@ -166,7 +166,7 @@ pair<bool,Network*> importformfile(const char *filename) {
         iss >> d;
         links.push_back(Conn{b, c, d});
     }
-    Network *net=  generateNetwork(nodes, links);
+    netout=  generateNetwork(nodes, links);
 
     for (auto n :nodes){
         std::cout << n[0] << "," << n[1] << std::endl;
@@ -177,7 +177,7 @@ pair<bool,Network*> importformfile(const char *filename) {
     }
 
     infile.close();
-    return {true, net};
+    return true;
 }
 
 int mymain(int argc, char *argv[]) {
@@ -202,12 +202,12 @@ int mymain(int argc, char *argv[]) {
                        Conn{6, 3, 2.47735},};
 
 //    Network *net = generateNetwork(nodes, conns);
-
-    const pair<bool, Network *> &p = importformfile("test");
-    if (!p.first) {
-        return -1;
-    }
-    Network *net = p.second;
+    NEAT::Network * net;
+    	bool good = importformfile("test",net);
+    	if (!good) {
+    		std::cout << "error loading neat network" <<std::endl;
+    		return false;
+    	}
 
     double out[1];
     net->flush();

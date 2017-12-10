@@ -55,9 +55,5 @@ local.properties
 fe1_log\.out
 
 core
-
-networkconf works
-
-networkconfcrash
-
-src/blackboxneat\.cpp
+/.idea
+/cmake-build-debug

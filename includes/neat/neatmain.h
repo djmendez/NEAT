@@ -31,7 +31,7 @@ bool hasLink(NEAT::Link *link, const std::vector<Conn> &vec);
 
 void exporttofile(char *filename, NEAT::Network *net);
 
-std::pair<bool,NEAT::Network*> importformfile(const char *filename);
+bool importformfile(const char *filename, NEAT::Network *&);
 
 
 

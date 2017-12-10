@@ -148,7 +148,7 @@ void FastEcslent::Engine::run(){
 		oldTime = newTime;
 		int ms = diff.total_milliseconds();
 
-		ms = max(0, 33 - ms);//30 fps
+		ms = max(0, options.framesPerSecond - ms);//30 fps default
 		if (options.enableGfx)
 				boost::this_thread::sleep( boost::posix_time::milliseconds(ms) );
 

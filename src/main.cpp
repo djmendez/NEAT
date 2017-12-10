@@ -111,6 +111,9 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
     options.levelType = _64x64;
     options.maxFrames = maxFrames;
 
+    // normally set to 30 -- increase to slow down graphics
+    options.framesPerSecond = 90;
+
     options.numUnitsA = numUnitsA;
     options.numUnitsB = numUnitsB;
 

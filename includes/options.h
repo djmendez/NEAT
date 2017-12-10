@@ -32,6 +32,7 @@ typedef struct  {
 	int numUnitsA;
 	int numUnitsB;
 	int startFriendPos;
+	int framesPerSecond;
 
 	int gameNumber; //which game?
         

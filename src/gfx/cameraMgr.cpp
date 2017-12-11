@@ -38,7 +38,7 @@ OgreGFX::CameraMgr::CameraMgr(GraphicsInteractionManager *gim): GFXMgr(gim) { //
 	//camera->setOrientation(Ogre::Quaternion::ZERO);
 	sceneManager = gim->mSceneMgr;
 	cameraNode = sceneManager->getRootSceneNode()->createChildSceneNode("cameraNode");
-	cameraNode->setPosition(1000,2500,1000);
+	cameraNode->setPosition(1750,1500,1000);
 	cameraNode->pitch(Ogre::Radian((-1 * M_PI) / 2));
 
 	//float direction = cameraNode->getDirection();

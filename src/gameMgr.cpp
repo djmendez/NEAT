@@ -284,7 +284,7 @@ void FastEcslent::GameMgr::StarCraft(){
 	// Set up blue side alway at X = Z = 1000
 	// Then spread out red (NEAT) side at a radius on diffPoints around the circumference
 	int redX, redY = 100, redZ;
-	int blueX  = 1000, blueY = 100, blueZ = 1000;
+	int blueX  = 2000, blueY = 100, blueZ = 2000;
 	int diffPoints = 8;
 	float radius = 800.0f;
 
@@ -307,9 +307,10 @@ void FastEcslent::GameMgr::StarCraft(){
 //	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(offset*4, 0, offset*4), 250.0f, 0.ecto06f);
 
 	originalSideDistances = radius;
-	std::cout << "Starting Friendly(RED) side positions at (" << redX << "," <<redZ << ")" << std::endl;
+	std::cout << "Starting Friendly(RED) side positions at (" << redX << "," << redY << "," << redZ << ")" << std::endl;
+	std::cout << "Starting Enemy(BLUE) side positions at (" << blueX << "," << blueY << "," << blueZ << ")" << std::endl;
 	makeArmyForSidePlayer(RED, ONE, Ogre::Vector3(redX,redY,redZ), 250.0f, 0.06f);
-	makeArmyForSidePlayer(BLUE, THREE, Ogre::Vector3(blueX,blueY,blueZ) , 250.0f, 0.06f);
+	makeArmyForSidePlayer(BLUE, TWO, Ogre::Vector3(blueX,blueY,blueZ) , 250.0f, 0.06f);
 
 	//makeTerrain();
 	//makeBaseForSidePlayer(YELLOW, THREE, Ogre::Vector3(-offset, 0, offset), 550.0f, 0.06f);

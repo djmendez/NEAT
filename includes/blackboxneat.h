@@ -23,6 +23,11 @@ namespace FastEcslent {
         bool isCloseEnough(float distance);
         void applyNEATProcessToGetSpeedAndHeading(Entity *entity);
 	private:
+        const float speedDelta = .10;   	// speed change as a percent of range
+        const float angleDelta = M_PI /18; 	// change heading in increments of 10 degrees
+
+        const float NEATNetBoundary = 0.5;
+
         // Neural Net
         NEAT::Network *net;
 
@@ -30,8 +35,8 @@ namespace FastEcslent {
 		// Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
         double input[NEATSegments*2*2];
 
-        // output: desiredHeading, desiredSpeed
-        double output[2];
+        // output: desiredHeading: +, -  desiredSpeed: +, -
+        double output[4];
 
         // NEAT parameter as to whether we are close enough
         const float distanceIsCloseEnough = 50.0;

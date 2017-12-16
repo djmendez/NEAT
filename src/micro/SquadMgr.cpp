@@ -280,8 +280,9 @@ double SquadMgr::getSquadScore()
 		else // one side or the other has been completely destroyed -- still give full marks for distance i.e. set it to 0
 			distance = 0.0f;
 
-		// if current distance is 0, then distanceFitness will be 500 * number of friendly units [this last to scale to fitness from fight]
-		if (this->engine->gameMgr->originalSideDistances - distance > 0)
+		// If distance has decreased, then assign fitness -- else will be 0
+		// if current distance is 0, then distanceFitness will be 1 * 500 * number of friendly units [this last to scale to fitness from fight]
+		if (this->engine->gameMgr->originalSideDistances > distance)
 			distanceFitness = ((this->engine->gameMgr->originalSideDistances - distance) / this->engine->gameMgr->originalSideDistances) * (500.0f * this->engine->options.numUnitsA);
 
 		// FOR NOW JUST USE DISTNACE AS FITNESS

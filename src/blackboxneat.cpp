@@ -106,9 +106,32 @@ void FastEcslent::BlackBoxNEAT::applyNEATProcessToGetSpeedAndHeading(Entity *ent
 	//Apply Neural Net
 	NEATProcess();
 
-	//Now Process output
-	entity->desiredSpeed = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
-	entity->desiredHeading = (NEATNet->output[1] - .5) * M_PI;
+	float desiredSpeed = entity->speed, desiredHeading = entity->heading;
+
+	// If + output set, increase, if - output set, decrease
+	// UNLESS they are both either "on" or both "off" in which case the speed and heading will be unchanged
+
+	//Process Heading Output
+	//Increase or decrease angle by angleDelta
+	if (NEATNet->output[0] > NEATNetBoundary && NEATNet->output[1] < NEATNetBoundary)
+		desiredHeading += angleDelta;
+	else if (NEATNet->output[0] < NEATNetBoundary && NEATNet->output[1] > NEATNetBoundary)
+		desiredHeading -= angleDelta;
+
+	//Now Process Speed Output
+	//Increase or decrease speed by speedDelta percent of speed range
+	if (NEATNet->output[2] > NEATNetBoundary && NEATNet->output[3] < NEATNetBoundary) {
+		desiredSpeed += (speedDelta * (entity->maxSpeed - entity->minSpeed));
+	}
+	else if (NEATNet->output[2] < NEATNetBoundary && NEATNet->output[3] > NEATNetBoundary) {
+		desiredSpeed -= (speedDelta * (entity->maxSpeed - entity->minSpeed));
+	}
+
+	desiredHeading = clamp(desiredHeading,0, 2 * M_PI);
+	desiredSpeed = clamp(desiredSpeed,entity->minSpeed,entity->maxSpeed);
+
+	entity->desiredSpeed = desiredSpeed;
+	entity->desiredHeading = desiredHeading;
 }
 
 bool FastEcslent::BlackBoxNEAT::isCloseEnough(float distance) {

@@ -388,8 +388,8 @@ inline void FastEcslent::Potential3DMove::tick() {
 			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
 			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
 			if (!entity->engine->options.enemyTacticalAI) { // if enemyTacticalAI is DISABLED, move VERY slowly
-				entity->desiredHeading = 0.;
-				entity->desiredSpeed = 0.00000000000000000000000000001;
+				entity->desiredHeading = 0.0;
+				entity->desiredSpeed = 0.0;
 			}
 		}
 		// IF SIDE IS RED (FRIENDLY) USE NEAT

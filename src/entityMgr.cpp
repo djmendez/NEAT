@@ -172,6 +172,7 @@ FastEcslent::Entity *FastEcslent::EntityMgr::createEntityForPlayerAndSide(Entity
 	ent->entityId.player = player;
 	ent->entityId.side = side;
 	ent->desiredSpeed = 0.0f;
+	ent->heading = (((float) random()) / ((float) RAND_MAX + 1)) * (2 * M_PI);
 
 	this->engine->infoMgr->registerEntity(ent);
 	//gaeSpecific Stuff

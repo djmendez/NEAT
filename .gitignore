@@ -57,3 +57,4 @@ fe1_log\.out
 core
 /.idea
 /cmake-build-debug
+RemoteSystemsTempFiles/

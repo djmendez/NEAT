@@ -18,6 +18,7 @@
 #include <blackboxneat.h>
 
 //#include <command.h>
+
 inline bool FastEcslent::Move::done() {
 	//return (entity->pos.squaredDistance((target->location)) <= entity->turningRadius);
 	float dist = entity->pos.distance(target->location);
@@ -70,98 +71,8 @@ void FastEcslent::Move::init(){
 }
 
 inline void FastEcslent::Move::tick() {
-	BlackBoxNEAT *NEATNet = entity->engine->engineNEATNet;
-	int nEnts = entity->engine->entityMgr->nEnts;
-
 	if (!done()){
-
-		double repulsivePotential = 0.0f;
-		float angleRad = 0;
-		int segment = 0;
-		float totFriendlyDist = 0.0f, totEnemyDist = 0.0f; // used to keep track of total distance for NN SCALING
-
-		entity->potentialVec = Ogre::Vector3::ZERO;
-		Ogre::Vector3 tmp;
-		int nInRange = 1; // at least one so that you don't multiply by 0 later
-		Entity *currEnt;
-
-		// initialize all NEAT inputs to 0
-		for (int i = 0; i < NEATSegments*4; i++)
-			NEATNet->input[i] = 0;
-
-		//Capture information for all other entities: repulsivePotential
-		for (int i = 0; i < nEnts; i++){
-			if(i != entity->entityId.id){// repulsed by all other entities
-				currEnt = entity->engine->entityMgr->ents[i];
-
-				//here figure out relative angle
-				// USE atan2(-entity->potentialVec.z, entity->potentialVec.x) instead????
-				angleRad = atan2(entity->pos.z - currEnt->pos.z,entity->pos.x - currEnt->pos.x);
-
-				//classify into segment and side
-				angleRad += M_PI; // add pi to make in range 0 - 2pi
-				segment = (int) angleRad / ((2 * M_PI) / NEATSegments); // divide 2pi interval by segment size to find proper segment
-				if(segment == NEATSegments) // boundary condition -- if angle is EXACTLY pi, would cause improper segment
-					segment--;
-
-				segment *= 2; // since segments come in pairs (units, average distance) multiply by 2 to find starting point
-
-				if (currEnt->entityId.side == RED)
-					segment += (2 * NEATSegments); // Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
-
-				NEATNet->input[segment] += 1;
-				NEATNet->input[segment+1] += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-				// keep track of the total distance of all friendly and enemy units for use in scaling later
-				if (currEnt->entityId.side == RED)
-					totFriendlyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-				else
-					totEnemyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-				//add distance to overall distance (average later)
-
-
-//					if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
-//						nInRange += 1;
-//						tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
-//
-//						double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
-//						if(val == 0)
-//							val = 0.1;
-//
-//						repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
-//						entity->potentialVec += (tmp * repulsivePotential);
-//					}
-
-			}
-		}
-		// SCALE both distances and numbers of units to represent PERCENT of TOTAL per SIDE
-		// i.e. For each side, the sum of all unit counts and distances will be 1.0.
-		// compute Enemies side first
-		for (int i = 0; i < NEATSegments*2; i += 2) {
-			if (NEATNet->input[i]) { // ignore segment if there is nothing
-				NEATNet->input[i] = NEATNet->input[i] / entity->engine->options.numUnitsB;
-				NEATNet->input[i+1] = NEATNet->input[i+1] / totEnemyDist;
-			}
-		}
-
-		// now compute Friendly Side
-		for (int i = NEATSegments*2; i < NEATSegments*4; i += 2) {
-			if (NEATNet->input[i]) { // ignore segment if there is nothing
-				NEATNet->input[i] = NEATNet->input[i] / (entity->engine->options.numUnitsA - 1); // -1 since *this* Unit is not part of computation
-				NEATNet->input[i+1] = NEATNet->input[i+1] / totFriendlyDist;
-			}
-		}
-
-		//Apply Neural Net
-		NEATNet->NEATProcess();
-
-		//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
-
-		// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
-		entity->desiredSpeed = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
-		entity->desiredHeading = (NEATNet->output[1] - .5) * M_PI;
-
+		entity->engine->engineNEATNet->applyNEATProcessToGetSpeedAndHeading(entity);
 	} else {
 		entity->desiredSpeed = 0.0f;
 		this->repulsor = 0;
@@ -363,134 +274,8 @@ void FastEcslent::PotentialMove::init(){
 }
 
 inline void FastEcslent::PotentialMove::tick(){
-	int nEnts = entity->engine->entityMgr->nEnts;
-	// just shortcut
-	BlackBoxNEAT *NEATNet = entity->engine->engineNEATNet;
-
 	if (!done()){
-
-		double repulsivePotential = 0.0f;
-		float angleRad = 0;
-		int segment = 0;
-		float totFriendlyDist = 0.0f, totEnemyDist = 0.0f; // used to keep track of total distance for NN SCALING
-
-		entity->potentialVec = Ogre::Vector3::ZERO;
-		Ogre::Vector3 tmp;
-		int nInRange = 1; // at least one so that you don't multiply by 0 later
-		Entity *currEnt;
-
-		// initialize all NEAT inputs to 0
-		for (int i = 0; i < NEATSegments*4; i++)
-			NEATNet->input[i] = 0;
-
-		//Capture information for all other entities: repulsivePotential
-		for (int i = 0; i < nEnts; i++){
-			if(i != entity->entityId.id){// repulsed by all other entities
-				currEnt = entity->engine->entityMgr->ents[i];
-
-				//here figure out relative angle
-				// USE atan2(-entity->potentialVec.z, entity->potentialVec.x) instead????
-				angleRad = atan2(entity->pos.z - currEnt->pos.z,entity->pos.x - currEnt->pos.x);
-
-				//classify into segment and side
-				angleRad += M_PI; // add pi to make in range 0 - 2pi
-				segment = (int) angleRad / ((2 * M_PI) / NEATSegments); // divide 2pi interval by segment size to find proper segment
-				if(segment == NEATSegments) // boundary condition -- if angle is EXACTLY pi, would cause improper segment
-					segment--;
-
-				segment *= 2; // since segments come in pairs (units, average distance) multiply by 2 to find starting point
-
-				if (currEnt->entityId.side == RED)
-					segment += (2 * NEATSegments); // Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
-
-				NEATNet->input[segment] += 1;
-				NEATNet->input[segment+1] += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-				// keep track of the total distance of all friendly and enemy units for use in scaling later
-				if (currEnt->entityId.side == RED)
-					totFriendlyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-				else
-					totEnemyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-				//add distance to overall distance (average later)
-
-
-//					if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
-//						nInRange += 1;
-//						tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
-//
-//						double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
-//						if(val == 0)
-//							val = 0.1;
-//
-//						repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
-//						entity->potentialVec += (tmp * repulsivePotential);
-//					}
-
-			}
-		}
-		// SCALE both distances and numbers of units to represent PERCENT of TOTAL per SIDE
-		// i.e. For each side, the sum of all unit counts and distances will be 1.0.
-		// compute Enemies side first
-		for (int i = 0; i < NEATSegments*2; i += 2) {
-			if (NEATNet->input[i]) { // ignore segment if there is nothing
-				NEATNet->input[i] = NEATNet->input[i] / entity->engine->options.numUnitsB;
-				NEATNet->input[i+1] = NEATNet->input[i+1] / totEnemyDist;
-			}
-		}
-
-		// now compute Friendly Side
-		for (int i = NEATSegments*2; i < NEATSegments*4; i += 2) {
-			if (NEATNet->input[i]) { // ignore segment if there is nothing
-				NEATNet->input[i] = NEATNet->input[i] / (entity->engine->options.numUnitsA - 1); // -1 since *this* Unit is not part of computation
-				NEATNet->input[i+1] = NEATNet->input[i+1] / totFriendlyDist;
-			}
-		}
-
-		//Apply Neural Net
-		NEATNet->NEATProcess();
-
-		//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
-
-		// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
-		entity->desiredSpeed = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
-		entity->desiredHeading = (NEATNet->output[1] - .5) * M_PI;
-
-
-//		// compute force
-//			double repulsivePotential = 0.0f;
-//			entity->potentialVec = Ogre::Vector3::ZERO;
-//			Ogre::Vector3 tmp;
-//			int nInRange = 1; // at least one so that you don't multiply by 0 later
-//			for (int i = 0; i < nEnts; i++){
-//				if(i != entity->entityId.id){// repulsed by all other entities
-//					if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < 0.1f/*RepulsionThresholdDistance*/) { // Don't care about entities too far away
-//						nInRange += 1;
-//						tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
-//						repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(entity->engine->distanceMgr->distance[entity->entityId.id][i], m);
-//						if(repulsivePotential  > INT_MAX){   //repulsive potential could be infinite
-//							repulsivePotential = INT_MAX;
-//						}
-//						entity->potentialVec += (tmp * repulsivePotential);
-//					}
-//				}
-//			}
-//			//attracted by target
-//			tmp = (entity->pos - target->location);
-//			//tmp = target->location - entity->pos;
-//			double targetDistance = tmp.length();
-//			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
-//			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
-//			//applyPotential(entity, potentialVec);
-//
-//			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
-//
-//			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
-//			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
-//
-
-
-		// apply force
+		entity->engine->engineNEATNet->applyNEATProcessToGetSpeedAndHeading(entity);
 	} else {
 		DEBUG(std::cout << "Attractive Potential: " << entity->attractivePotential << std::endl;)
 		entity->desiredSpeed = 0.0f;
@@ -549,10 +334,8 @@ void FastEcslent::Potential3DMove::init(){
 // Else if NEAT side, then gather info re location, pass on to Neat and use output to set speed and heading
 
 inline void FastEcslent::Potential3DMove::tick() {
-	int nEnts = entity->engine->entityMgr->nEnts;
 
-	// just shortcut
-	BlackBoxNEAT *NEATNet = entity->engine->engineNEATNet;
+	int nEnts = entity->engine->entityMgr->nEnts;
 
 	float relevantDistanceThreshold;// = 100.0f;
 	if (this->entity->entityType == SC_ZEALOT){
@@ -611,148 +394,9 @@ inline void FastEcslent::Potential3DMove::tick() {
 		}
 		// IF SIDE IS RED (FRIENDLY) USE NEAT
 		else if (entity->entityId.side == RED) {
-			double repulsivePotential = 0.0f;
-			float angleRad = 0;
-			int segment = 0;
-			float totFriendlyDist = 0.0f, totEnemyDist = 0.0f; // used to keep track of total distance for NN SCALING
-
-			entity->potentialVec = Ogre::Vector3::ZERO;
-			Ogre::Vector3 tmp;
-			int nInRange = 1; // at least one so that you don't multiply by 0 later
-			Entity *currEnt;
-
-			// initialize all NEAT inputs to 0
-			for (int i = 0; i < NEATSegments*4; i++)
-				NEATNet->input[i] = 0;
-
-			//Capture information for all other entities: repulsivePotential
-			for (int i = 0; i < nEnts; i++){
-				if(i != entity->entityId.id){// repulsed by all other entities
-					currEnt = entity->engine->entityMgr->ents[i];
-
-					//here figure out relative angle
-					// USE atan2(-entity->potentialVec.z, entity->potentialVec.x) instead????
-					angleRad = atan2(entity->pos.z - currEnt->pos.z,entity->pos.x - currEnt->pos.x);
-
-					//classify into segment and side
-					angleRad += M_PI; // add pi to make in range 0 - 2pi
-					segment = (int) angleRad / ((2 * M_PI) / NEATSegments); // divide 2pi interval by segment size to find proper segment
-					if(segment == NEATSegments) // boundary condition -- if angle is EXACTLY pi, would cause improper segment
-						segment--;
-
-					segment *= 2; // since segments come in pairs (units, average distance) multiply by 2 to find starting point
-
-					if (currEnt->entityId.side == RED)
-						segment += (2 * NEATSegments); // Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
-
-					NEATNet->input[segment] += 1;
-					NEATNet->input[segment+1] += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-					// keep track of the total distance of all friendly and enemy units for use in scaling later
-					if (currEnt->entityId.side == RED)
-						totFriendlyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-					else
-						totEnemyDist += entity->engine->distanceMgr->distance[entity->entityId.id][i];
-
-					//add distance to overall distance (average later)
-
-					if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < relevantDistanceThreshold) { // Don't care about entities too far away
-						if(entity->entityId.side == entity->engine->entityMgr->ents[i]->entityId.side) {
-							nInRange += 1;
-							tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
-
-							double val = entity->engine->distanceMgr->distance[entity->entityId.id][i];
-							if(val == 0)
-								val = 0.1;
-
-							repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
-							entity->potentialVec += (tmp * repulsivePotential);
-						}
-					}
-				}
-			}
-			// SCALE both distances and numbers of units to represent PERCENT of TOTAL per SIDE
-			// i.e. For each side, the sum of all unit counts and distances will be 1.0.
-			// compute Enemies side first
-			for (int i = 0; i < NEATSegments*2; i += 2) {
-				if (NEATNet->input[i]) { // ignore segment if there is nothing
-					NEATNet->input[i] = NEATNet->input[i] / entity->engine->options.numUnitsB;
-					NEATNet->input[i+1] = NEATNet->input[i+1] / totEnemyDist;
-				}
-			}
-
-			// now compute Friendly Side
-			for (int i = NEATSegments*2; i < NEATSegments*4; i += 2) {
-				if (NEATNet->input[i]) { // ignore segment if there is nothing
-					NEATNet->input[i] = NEATNet->input[i] / (entity->engine->options.numUnitsA - 1); // -1 since *this* Unit is not part of computation
-					NEATNet->input[i+1] = NEATNet->input[i+1] / totFriendlyDist;
-				}
-			}
-
-			//Apply Neural Net
-			NEATNet->NEATProcess();
-
-			//CODE BELOW NEEDS TO BE HOOKED UP ONCE WE ARE READY TO USE NEAT
-
-			// ONCE NEAT IS CONNECTED USE THE TWO LINES BELOW
-			entity->desiredSpeed = (NEATNet->output[0] * (entity->maxSpeed - entity->minSpeed)) + entity->minSpeed;
-			entity->desiredHeading = (NEATNet->output[1] - .5) * M_PI;
-
-			/* ELIMINATE BELOW ONCE NEAT IS CONNECTED */
-//			tmp = (entity->pos - target->location);
-//			//tmp = target->location - entity->pos;
-//			double targetDistance = tmp.length();
-//			entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
-//
-//			entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
-//
-//			//applyPotential(entity, potentialVec);
-//
-//			entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
-//			double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
-//			entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);
-			/* ELEMINATE TO HERE ONCE NEAT IS CONECTED */
+			entity->engine->engineNEATNet->applyNEATProcessToGetSpeedAndHeading(entity);
 		}
 	}
-
-			//std::cout << "Moving " << entity->uiname << " to " << target->location.y << " Y" << std::endl;
-
-		/*double repulsivePotential = 0.0f;
-					entity->potentialVec = Ogre::Vector3::ZERO;
-					Ogre::Vector3 tmp;
-					int nInRange = 1; // at least one so that you don't multiply by 0 later
-					for (int i = 0; i < nEnts; i++){
-						if(i != entity->entityId.id){// repulsed by all other entities
-							//if (entity->engine->distanceMgr->distance[entity->entityId.id][i] < RepulsionThresholdDistance) { // Don't care about entities too far away
-							if(entity->pos.distance(entity->engine->entityMgr->ents[i]->pos) < RepulsionThresholdDistance) {
-								nInRange += 1;
-								//tmp = (entity->engine->distanceMgr->normalizedDistanceVec[i][entity->entityId.id]);
-								tmp = (entity->pos - entity->engine->entityMgr->ents[i]->pos).normalisedCopy();
-
-								double val = sqrt(pow(entity->pos.x - entity->engine->entityMgr->ents[i]->pos.x, 2) + pow(entity->pos.y - entity->engine->entityMgr->ents[i]->pos.y, 2) + pow(entity->pos.z - entity->engine->entityMgr->ents[i]->pos.z, 2));
-
-								repulsivePotential =  (B * entity->engine->entityMgr->ents[i]->mass) / pow(val, m);
-								if(repulsivePotential  > INT_MAX){   //repulsive potential could be infinite
-									repulsivePotential = INT_MAX;
-								}
-								entity->potentialVec += (tmp * repulsivePotential);
-							}
-						}
-					}
-					//attracted by target
-					tmp = (entity->pos - target->location);
-					//tmp = target->location - entity->pos;
-					double targetDistance = tmp.length();
-					entity->attractivePotential =  -(A ) / pow(targetDistance, n);// + (B) /pow (targetDistance, m);
-					entity->potentialVec += (tmp.normalisedCopy() * entity->attractivePotential * nInRange); // nInRange needs to be at least 1
-					//applyPotential(entity, potentialVec);
-
-					entity->desiredHeading = atan2(-entity->potentialVec.z, entity->potentialVec.x);
-
-					double cosDiffFrac = (1.0 - cos(entity->vel.angleBetween(entity->potentialVec).valueRadians()))/2.0;// between 0 and 2 divided by 2.0 gives something between 0 and 1
-					entity->desiredSpeed   = (entity->maxSpeed - entity->minSpeed) * (1.0 - cosDiffFrac);*/
-
-		// apply force
 	else {
 		DEBUG(std::cout << "Attractive Potential: " << entity->attractivePotential << std::endl;)
 		entity->desiredSpeed = 0.0f;

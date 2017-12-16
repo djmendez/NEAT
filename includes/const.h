@@ -52,7 +52,7 @@ const int   MaxPlayers                = 4;
 
 // segments for the NEAT input
 const int NEATSegments = 8;
-
+const int NEATMinDistance = 50;
 
 }
 

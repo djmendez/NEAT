@@ -181,23 +181,6 @@ void savefitnesstofile(const char *filename, int fitness){
 }
 
 int main(int argc, char *argv[]){
-//	for (int i= 0; i <5 ;i++){
-//		std::cout << m[i] << "," ;
-//	}
-//	std::cout<<std::endl;
-//	BlackBoxNEAT *myneat = new BlackBoxNEAT();
-//	myneat->loadFromFile("networkconf");
-//	myneat->input[0]= 1;//bias
-//	myneat->input[1]= 0;
-//	myneat->input[2]= 0;
-//	myneat->NEATProcess();
-//	std::cout <<"xorout"<< myneat->output[0] <<std::endl;
-
-	//srandom(time(NULL));
-	//srandom(atoi(argv[2]));
-	//std::cout << atoi(argv[2]) << std::endl;
-
-
 	double fitness;
 	BlackBoxNEAT *neatNet = new BlackBoxNEAT();
 	neatNet->loadFromFile("networkconf");

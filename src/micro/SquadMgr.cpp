@@ -284,7 +284,9 @@ double SquadMgr::getSquadScore()
 		if (this->engine->gameMgr->originalSideDistances - distance > 0)
 			distanceFitness = ((this->engine->gameMgr->originalSideDistances - distance) / this->engine->gameMgr->originalSideDistances) * (500.0f * this->engine->options.numUnitsA);
 
-		return (score+hp+distanceFitness);
+		// FOR NOW JUST USE DISTNACE AS FITNESS
+		//return (score+hp+distanceFitness);
+		return (distanceFitness);
 
 	// Scenario C v.2
 
@@ -347,15 +349,22 @@ double SquadMgr::getSquadScore()
 
 
 double SquadMgr::moveScore(){
-	double totalDist = 0.0;
-	for (set<Entity*>::iterator i = this->unitSet.begin(); i != this->unitSet.end(); i++){
-		for (set<Entity*>::iterator j = this->enemySet.begin(); j != this->enemySet.end(); j++){
-			Entity *f = *i;
-			Entity *e = *j;
-			totalDist += (f->pos - e->pos).length();
+
+
+	if (this->unitSet.size() && this->enemySet.size()) {
+		double totalDist = 0.0;
+		for (set<Entity*>::iterator i = this->unitSet.begin(); i != this->unitSet.end(); i++){
+			for (set<Entity*>::iterator j = this->enemySet.begin(); j != this->enemySet.end(); j++){
+				Entity *f = *i;
+				Entity *e = *j;
+				totalDist += (f->pos - e->pos).length();
+			}
 		}
+		return totalDist / (this->unitSet.size() * this->enemySet.size());
 	}
-	return totalDist/(this->unitSet.size() * this->enemySet.size());
+
+	// if one or both squads are dead, return 0
+	return 0.0;
 }
 
 double SquadMgr::fightScore(){

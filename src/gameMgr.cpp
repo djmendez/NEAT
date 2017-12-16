@@ -386,7 +386,6 @@ void FastEcslent::GameMgr::makeArmyForSidePlayer(Side side, Player player, Ogre:
 		//location.z = 1948;
 
 		createNEntitiesCircle(SC_VULTURE, engine->options.numUnitsA, side, player, location, 5);
-		//createNEntitiesCircle(SC_VULTURE, engine->options.numUnitsA, side, player, location, 5);
 
 //				location.x = 1948;
 //				location.z = 1948;

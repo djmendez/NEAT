@@ -3,6 +3,7 @@
 
 #include "micro/infoMgr.h"
 #include "engine.h"
+#include <blackboxneat.h>
 #include "micro/InfluenceMap3D.h"
 #include "DEBUG.h"
 
@@ -86,7 +87,13 @@ void InfoMgr::tick(){
 	if(this->engine->frames > 10){
 		//check the end criteria
 		//		if(this->squadmgr_red->getEnemies().size() <= 0 || this->squadmgr_blue->getEnemies().size() <= 0 || this->getFrameCount() > 300000){
-		if(this->squadmgr_red->getEnemies().size() <= 0 || this->squadmgr_blue->getEnemies().size() <= 0 || this->engine->frames > this->maxFrames){
+
+		if(this->squadmgr_red->getEnemies().size() <= 0 || // All enemies are dead
+				this->squadmgr_blue->getEnemies().size() <= 0 || // All friends are dead
+				this->engine->frames > this->maxFrames || // We've gone beyond the number of frames
+				this->engine->engineNEATNet->isCloseEnough(this->squadmgr_red->moveScore())) // the squads are "close enough"
+		// THEN finish the simulation
+		{
 			ptime endTime = getCurrentTime();
 			ptime startTime = this->engine->startTime;
 			long duration = (endTime - startTime).total_seconds();

@@ -12,12 +12,19 @@
 #include <network.h>
 #include <utility>
 #include <neatmain.h>
+#include <ent.h>
 
 namespace FastEcslent {
 
 	class  BlackBoxNEAT {
 
 	public:
+        bool loadFromFile(const char *filename);
+        bool isCloseEnough(float distance);
+        void applyNEATProcessToGetSpeedAndHeading(Entity *entity);
+	private:
+        // Neural Net
+        NEAT::Network *net;
 
 		// input is number of segments (NEATSegments) * 2 (for each side, friendly/enemy) * 2 (one for units, other average distance)
 		// Enemies (BLUE) occupy first half of array, FRiendlies (RED) second half
@@ -26,13 +33,11 @@ namespace FastEcslent {
         // output: desiredHeading, desiredSpeed
         double output[2];
 
+        // NEAT parameter as to whether we are close enough
+        const float distanceIsCloseEnough = 50.0;
+
 
         void NEATProcess(); // assumes input has been set, sets output
-
-        bool loadFromFile(const char *filename);
-
-	private:
-        NEAT::Network *net;
 	};
 }
 

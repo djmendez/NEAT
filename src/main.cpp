@@ -112,7 +112,7 @@ Options makeOptions(bool enemyTacticalAI,bool enableGfx, int numUnitsA, int numU
     options.maxFrames = maxFrames;
 
     // normally set to 30 -- increase to slow down graphics
-    options.framesPerSecond = 90;
+    options.framesPerSecond = 30;
 
     options.numUnitsA = numUnitsA;
     options.numUnitsB = numUnitsB;
@@ -191,16 +191,38 @@ int main(int argc, char *argv[]){
 	// ARGUMENTS
 	// argc, argv -- unused, left for legacy
 	// neatNet --- pointer to NEATNeuralNetwork NEAT*
-	// numUnits side A 	// A are "friendlies", Side RED
-	// numUnits side B 	// B are "Enemies", Side BLUE
-	// boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
-	// boolean enable Graphics
+	// m[0] - numUnits side A 	// A are "friendlies", Side RED
+	// m[1] - numUnits side B 	// B are "Enemies", Side BLUE
+	// m[2] - number of frames for simulation
+	// m[3] - boolean enable enemyTacticalAI FOR ENEMY SIDE - false just leaves enemy stationary
+	// m[4] - boolean enable Graphics
+	// m[5] - starting position
+
 	int* m = loadgameparams("gameparams");
 
-	fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4],m[5]);
-	cout << "Ending with fitness: " << fitness << endl;
+	if (argc > 2) {
+		string s = argv[2];
+		if (s == "ALL") {
+			int totalFitness = 0;
 
-	savefitnesstofile("outfitness", fitness);
+			for (int i = 0; i < NEATSegments; i++) {
+				fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],false,i);
+				totalFitness += fitness;
+				cout << "Ending with fitness: " << fitness << endl;
+
+				//savefitnesstofile("outfitness", fitness);
+			}
+		cout << "MULTI-RUN -- Ending with average fitness: " << (totalFitness / NEATSegments) << endl;
+		}
+	}
+	else {
+		fitness = FEEvaluate(argc,argv,neatNet,m[0],m[1],m[2],m[3],m[4],m[5]);
+
+		cout << "SINGLE RUN: Ending with fitness: " << fitness << endl;
+		savefitnesstofile("outfitness", fitness);
+	}
+
+
 	return 0;
 }
 

@@ -23,8 +23,8 @@ namespace FastEcslent {
         bool isCloseEnough(float distance);
         void applyNEATProcessToGetSpeedAndHeading(Entity *entity);
 	private:
-        const float speedDelta = .10;   	// speed change as a percent of range
-        const float angleDelta = M_PI /18; 	// change heading in increments of 10 degrees
+        const float speedDelta = .02;   	// speed change as a percent of range
+        const float angleDelta = M_PI /50; 	// change heading in increments of 10 degrees
 
         const float NEATNetBoundary = 0.5;
 
